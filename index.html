@@ -1,0 +1,4954 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>English Vocabulary Academy</title>
+
+<style>
+*{
+ box-sizing:border-box;
+ margin:0;
+ padding:0;
+}
+
+:root{
+ --bg:#f5f8fc;
+ --card:#ffffff;
+ --card2:#f8fafc;
+ --text:#172033;
+ --muted:#68778c;
+ --line:#dce4ee;
+ --primary:#e53945;
+ --primary2:#ff6872;
+ --green:#16a875;
+ --gold:#e1a800;
+ --blue:#2d83e8;
+ --shadow:0 18px 50px rgba(30,45,70,.10);
+}
+
+html{
+ scroll-behavior:smooth;
+}
+
+body{
+ font-family:Inter,Arial,sans-serif;
+ min-height:100vh;
+ background:var(--bg);
+ color:var(--text);
+ overflow-x:hidden;
+ transition:.35s ease;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.sky{
+ position:fixed;
+ inset:0;
+ z-index:-10;
+ background:
+ radial-gradient(
+  circle at 80% 10%,
+  #ffffff 0,
+  #edf3f9 30%,
+  #f7f9fc 65%,
+  #eaf0f7 100%
+ );
+}
+
+.stars{
+ position:absolute;
+ inset:0;
+ opacity:.08;
+ background-image:
+ radial-gradient(circle,#7892b0 1px,transparent 1.5px),
+ radial-gradient(circle,#a0b3c9 1px,transparent 1.5px);
+ background-size:110px 110px,170px 170px;
+ background-position:20px 20px,70px 50px;
+}
+
+.moon{
+ position:absolute;
+ top:55px;
+ right:8%;
+ width:120px;
+ height:120px;
+ border-radius:50%;
+ background:
+ radial-gradient(
+  circle at 35% 30%,
+  #ffffff,
+  #edf2f8 60%,
+  #d5dfe9
+ );
+ box-shadow:
+ 0 0 35px rgba(110,140,180,.20),
+ 0 0 90px rgba(110,140,180,.12);
+}
+
+.moon:after{
+ content:"";
+ position:absolute;
+ width:19px;
+ height:12px;
+ border-radius:50%;
+ background:#aeb9c7;
+ opacity:.25;
+ left:29px;
+ top:35px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+ position:sticky;
+ top:0;
+ z-index:100;
+ height:72px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 5%;
+ background:rgba(255,255,255,.95);
+ backdrop-filter:blur(20px);
+ border-bottom:1px solid var(--line);
+ box-shadow:0 8px 30px rgba(30,45,65,.06);
+}
+
+.brand{
+ font-weight:950;
+ letter-spacing:1.5px;
+ font-size:21px;
+}
+
+.brand span{
+ color:var(--primary);
+}
+
+.stats{
+ display:flex;
+ align-items:center;
+ gap:8px;
+}
+
+.stat{
+ padding:9px 12px;
+ border:1px solid var(--line);
+ background:#fff;
+ border-radius:13px;
+ font-size:12px;
+ font-weight:800;
+ box-shadow:0 4px 15px rgba(30,45,65,.05);
+}
+
+.stat b{
+ color:var(--gold);
+}
+
+.settings{
+ width:42px;
+ height:42px;
+ border:1px solid #cbd5e1;
+ background:#fff;
+ color:#172033;
+ border-radius:13px;
+ cursor:pointer;
+ font-size:19px;
+ transition:.3s;
+ box-shadow:0 5px 18px rgba(30,45,65,.10);
+}
+
+.settings:hover{
+ transform:rotate(30deg) scale(1.08);
+ color:var(--primary);
+ border-color:var(--primary);
+}
+
+/* =========================
+   SETTINGS
+========================= */
+
+.settingsBox{
+ display:none;
+ position:fixed;
+ right:25px;
+ top:82px;
+ z-index:300;
+ width:300px;
+ padding:21px;
+ border:1px solid #d5deea;
+ border-radius:22px;
+ background:rgba(255,255,255,.98);
+ box-shadow:0 25px 70px rgba(25,40,65,.18);
+ backdrop-filter:blur(25px);
+ animation:settingsIn .25s ease;
+}
+
+.settingsBox.show{
+ display:block;
+}
+
+@keyframes settingsIn{
+ from{
+  opacity:0;
+  transform:translateY(-12px) scale(.95);
+ }
+ to{
+  opacity:1;
+  transform:none;
+ }
+}
+
+.settingsBox h3{
+ margin-bottom:15px;
+}
+
+.settingTitle{
+ margin-top:18px;
+ margin-bottom:8px;
+ font-size:12px;
+ color:var(--muted);
+ font-weight:800;
+ text-transform:uppercase;
+ letter-spacing:1px;
+}
+
+.theme,
+.soundBtn{
+ display:block;
+ width:100%;
+ margin:7px 0;
+ padding:13px;
+ border:1px solid var(--line);
+ border-radius:13px;
+ background:#f8fafc;
+ color:#172033;
+ text-align:left;
+ cursor:pointer;
+ font-weight:700;
+ transition:.25s;
+}
+
+.theme:hover,
+.soundBtn:hover{
+ transform:translateX(4px);
+ border-color:var(--primary);
+}
+
+.theme.active{
+ background:#fff2f3;
+ color:#d92f3b;
+ border-color:var(--primary);
+ box-shadow:0 7px 20px rgba(229,57,69,.10);
+}
+
+.soundBtn{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+}
+
+.soundStatus{
+ color:var(--green);
+ font-weight:900;
+}
+
+/* =========================
+   START SCREEN
+========================= */
+
+#start{
+ min-height:100vh;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:25px;
+}
+
+.hero{
+ width:min(760px,95%);
+ text-align:center;
+ padding:68px 35px;
+ border:1px solid var(--line);
+ border-radius:36px;
+ background:rgba(255,255,255,.95);
+ box-shadow:
+ 0 30px 90px rgba(30,45,65,.13);
+ animation:heroIn .9s cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes heroIn{
+ from{
+  opacity:0;
+  transform:translateY(35px) scale(.94);
+ }
+ to{
+  opacity:1;
+  transform:none;
+ }
+}
+
+.logoCircle{
+ width:82px;
+ height:82px;
+ margin:0 auto 20px;
+ border-radius:25px;
+ display:grid;
+ place-items:center;
+ font-size:35px;
+ background:linear-gradient(135deg,#e53945,#ff737c);
+ color:#fff;
+ box-shadow:
+ 0 15px 40px rgba(229,57,69,.25);
+ animation:logoFloat 3s ease-in-out infinite;
+}
+
+@keyframes logoFloat{
+ 0%,100%{transform:translateY(0) rotate(0)}
+ 50%{transform:translateY(-7px) rotate(2deg)}
+}
+
+.logoBig{
+ font-size:13px;
+ letter-spacing:4px;
+ font-weight:900;
+ color:#7a899c;
+}
+
+.hero h1{
+ margin:24px 0 15px;
+ font-size:clamp(45px,8vw,84px);
+ line-height:.92;
+ letter-spacing:-4px;
+ color:#172033;
+}
+
+.hero h1 span{
+ color:var(--primary);
+}
+
+.hero p{
+ max-width:550px;
+ margin:auto;
+ color:var(--muted);
+ line-height:1.8;
+ font-size:15px;
+}
+
+.startBtn{
+ position:relative;
+ overflow:hidden;
+ margin-top:32px;
+ padding:18px 58px;
+ border:0;
+ border-radius:16px;
+ background:linear-gradient(135deg,#e53945,#b91f2a);
+ color:#fff;
+ font-size:17px;
+ font-weight:950;
+ cursor:pointer;
+ box-shadow:
+ 0 17px 45px rgba(229,57,69,.24);
+ transition:.25s;
+}
+
+.startBtn:before{
+ content:"";
+ position:absolute;
+ top:0;
+ left:-120%;
+ width:80%;
+ height:100%;
+ background:linear-gradient(
+ 90deg,
+ transparent,
+ rgba(255,255,255,.4),
+ transparent
+ );
+ transform:skewX(-20deg);
+ animation:shine 3s infinite;
+}
+
+@keyframes shine{
+ 0%{left:-120%}
+ 40%,100%{left:140%}
+}
+
+.startBtn:hover{
+ transform:translateY(-5px) scale(1.03);
+ box-shadow:
+ 0 24px 60px rgba(229,57,69,.30);
+}
+
+.startBtn:active{
+ transform:scale(.96);
+}
+
+/* =========================
+   APP
+========================= */
+
+#app{
+ display:none;
+}
+
+.container{
+ width:min(1150px,92%);
+ margin:auto;
+ padding:38px 0 80px;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard{
+ display:grid;
+ grid-template-columns:1.4fr .6fr;
+ gap:18px;
+}
+
+.welcome,
+.xpCard{
+ border:1px solid var(--line);
+ background:rgba(255,255,255,.96);
+ border-radius:25px;
+ box-shadow:var(--shadow);
+}
+
+.welcome{
+ padding:31px;
+}
+
+.welcome h2{
+ font-size:30px;
+}
+
+.welcome p{
+ margin-top:8px;
+ color:var(--muted);
+ line-height:1.7;
+}
+
+.progressTop{
+ margin-top:25px;
+}
+
+.progressLabels{
+ display:flex;
+ justify-content:space-between;
+ color:var(--muted);
+ font-size:13px;
+ margin-bottom:9px;
+}
+
+.progress{
+ height:10px;
+ background:#e9eef4;
+ border-radius:20px;
+ overflow:hidden;
+}
+
+.progress i{
+ display:block;
+ width:0;
+ height:100%;
+ border-radius:20px;
+ background:linear-gradient(
+ 90deg,
+ var(--primary),
+ var(--primary2)
+ );
+ transition:width .8s cubic-bezier(.2,.8,.2,1);
+}
+
+.xpCard{
+ padding:27px;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+}
+
+.xpNumber{
+ font-size:43px;
+ font-weight:950;
+ color:var(--gold);
+}
+
+.xpCard small{
+ color:var(--muted);
+ margin-top:4px;
+}
+
+/* =========================
+   PATH
+========================= */
+
+.pathTitle{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin:40px 0 20px;
+}
+
+.pathTitle h2{
+ font-size:27px;
+}
+
+.pathTitle span{
+ color:var(--muted);
+ font-size:13px;
+}
+
+.levelPath{
+ position:relative;
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:18px;
+}
+
+/* =========================
+   LEVEL CARD
+========================= */
+
+.level{
+ position:relative;
+ min-height:195px;
+ padding:22px;
+ border:1px solid var(--line);
+ border-radius:25px;
+ background:linear-gradient(
+ 145deg,
+ #ffffff,
+ #f8fafc
+ );
+ cursor:pointer;
+ overflow:hidden;
+ transition:
+ transform .35s cubic-bezier(.2,.8,.2,1),
+ box-shadow .35s,
+ border-color .35s;
+ box-shadow:0 10px 32px rgba(30,45,65,.07);
+}
+
+.level:before{
+ content:"";
+ position:absolute;
+ width:160px;
+ height:160px;
+ right:-80px;
+ bottom:-80px;
+ border-radius:50%;
+ background:rgba(229,57,69,.07);
+ transition:.45s;
+}
+
+.level:hover:not(.locked){
+ transform:translateY(-9px);
+ border-color:var(--primary);
+ box-shadow:
+ 0 25px 55px rgba(30,45,65,.13),
+ 0 0 28px rgba(229,57,69,.08);
+}
+
+.level:hover:not(.locked):before{
+ transform:scale(1.7);
+}
+
+.level:active:not(.locked){
+ transform:scale(.97);
+}
+
+.level.locked{
+ opacity:.48;
+ cursor:not-allowed;
+ filter:saturate(.6);
+}
+
+.level.done{
+ animation:doneGlow 1.2s ease;
+}
+
+@keyframes doneGlow{
+ 0%{transform:scale(1)}
+ 45%{transform:scale(1.035)}
+ 100%{transform:scale(1)}
+}
+
+.circle{
+ width:66px;
+ height:66px;
+ display:grid;
+ place-items:center;
+ border-radius:50%;
+ background:#edf2f7;
+ border:2px solid #d5dee9;
+ font-size:21px;
+ font-weight:950;
+ transition:.35s;
+}
+
+.level:hover:not(.locked) .circle{
+ background:linear-gradient(
+ 135deg,
+ #e53945,
+ #b91f2a
+ );
+ border-color:#ff777e;
+ color:#fff;
+ transform:scale(1.08) rotate(4deg);
+ box-shadow:0 0 30px rgba(229,57,69,.20);
+}
+
+.level.done .circle{
+ background:linear-gradient(
+ 135deg,
+ #e53945,
+ #b91f2a
+ );
+ color:#fff;
+ border-color:#ff777e;
+}
+
+.level h3{
+ margin-top:18px;
+ font-size:20px;
+}
+
+.level p{
+ margin-top:6px;
+ color:var(--muted);
+ font-size:13px;
+}
+
+.status{
+ position:absolute;
+ right:17px;
+ top:20px;
+ color:#8190a3;
+ font-size:11px;
+ font-weight:900;
+}
+
+.done .status{
+ color:var(--green);
+}
+
+/* =========================
+   PAGE
+========================= */
+
+.page{
+ display:none;
+ width:min(850px,92%);
+ margin:auto;
+ padding:35px 0 80px;
+ animation:pageIn .4s ease;
+}
+
+@keyframes pageIn{
+ from{
+  opacity:0;
+  transform:translateY(15px);
+ }
+ to{
+  opacity:1;
+  transform:none;
+ }
+}
+
+.back{
+ padding:10px 17px;
+ border:1px solid var(--line);
+ border-radius:12px;
+ background:#fff;
+ color:#172033;
+ cursor:pointer;
+ transition:.25s;
+}
+
+.back:hover{
+ transform:translateX(-5px);
+ border-color:var(--primary);
+ color:var(--primary);
+}
+
+.pageHead{
+ margin:28px 0 22px;
+}
+
+.pageHead h2{
+ font-size:35px;
+}
+
+.pageHead p{
+ color:var(--muted);
+ margin-top:7px;
+}
+
+/* =========================
+   WORDS
+========================= */
+
+.wordList{
+ display:grid;
+ gap:12px;
+}
+
+.word{
+ display:flex;
+ align-items:center;
+ gap:16px;
+ padding:19px;
+ border:1px solid var(--line);
+ border-radius:18px;
+ background:#fff;
+ box-shadow:0 7px 23px rgba(30,45,65,.05);
+ transition:.3s;
+ animation:wordIn .35s ease both;
+}
+
+@keyframes wordIn{
+ from{
+  opacity:0;
+  transform:translateX(-15px);
+ }
+ to{
+  opacity:1;
+  transform:none;
+ }
+}
+
+.word:hover{
+ transform:translateX(7px);
+ border-color:#c7d2df;
+ box-shadow:0 15px 35px rgba(30,45,65,.10);
+}
+
+.wordNo{
+ flex:none;
+ width:43px;
+ height:43px;
+ display:grid;
+ place-items:center;
+ border-radius:12px;
+ background:#f0f3f7;
+ color:var(--primary);
+ font-weight:950;
+}
+
+.wordEnglish{
+ font-size:20px;
+ font-weight:950;
+}
+
+.pron{
+ color:#7a899b;
+ margin-top:3px;
+}
+
+.meaning{
+ color:var(--primary);
+ margin-top:3px;
+ font-weight:800;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.mainBtn{
+ position:relative;
+ overflow:hidden;
+ width:100%;
+ margin-top:20px;
+ padding:17px;
+ border:0;
+ border-radius:15px;
+ background:linear-gradient(
+ 135deg,
+ #e53945,
+ #b91f2a
+ );
+ color:white;
+ font-size:16px;
+ font-weight:950;
+ cursor:pointer;
+ transition:.25s;
+ box-shadow:0 14px 38px rgba(229,57,69,.18);
+}
+
+.mainBtn:hover{
+ transform:translateY(-3px);
+ box-shadow:0 20px 48px rgba(229,57,69,.25);
+}
+
+.mainBtn:active{
+ transform:scale(.98);
+}
+
+/* =========================
+   TEST
+========================= */
+
+.question{
+ margin-bottom:14px;
+ padding:22px;
+ border:1px solid var(--line);
+ border-radius:20px;
+ background:#fff;
+ box-shadow:0 7px 25px rgba(30,45,65,.05);
+}
+
+.question h3{
+ line-height:1.5;
+ margin-bottom:13px;
+}
+
+.option{
+ display:block;
+ padding:13px;
+ margin:7px 0;
+ border:1px solid var(--line);
+ border-radius:12px;
+ color:#344158;
+ cursor:pointer;
+ transition:.2s;
+}
+
+.option:hover{
+ border-color:var(--primary);
+ background:#fff4f5;
+ transform:translateX(3px);
+}
+
+.option input{
+ margin-right:9px;
+}
+
+/* =========================
+   RESULT
+========================= */
+
+.result{
+ display:none;
+ margin-top:20px;
+ padding:32px;
+ text-align:center;
+ border:1px solid var(--line);
+ border-radius:23px;
+ background:#fff;
+ box-shadow:var(--shadow);
+ animation:resultIn .5s ease;
+}
+
+@keyframes resultIn{
+ from{
+  opacity:0;
+  transform:scale(.94);
+ }
+ to{
+  opacity:1;
+  transform:none;
+ }
+}
+
+.result h2{
+ font-size:35px;
+ color:var(--green);
+}
+
+.result p{
+ color:var(--muted);
+ line-height:1.7;
+ margin-top:8px;
+}
+
+/* =========================
+   EYE CARE MODE
+========================= */
+
+body.eye{
+ --bg:#f3ead5;
+ --card:#fff8e8;
+ --card2:#f8efd9;
+ --text:#493c25;
+ --muted:#786b4e;
+ --line:#d9cba9;
+ --primary:#b87818;
+ --primary2:#d69b3d;
+ --green:#518b63;
+ --gold:#a97712;
+ --shadow:0 18px 50px rgba(70,55,25,.12);
+}
+
+body.eye .sky{
+ background:
+ radial-gradient(
+  circle at 80% 10%,
+  #fff4d2,
+  #f5ecd7 40%,
+  #f1e6cc 100%
+ );
+}
+
+body.eye .stars{
+ opacity:.04;
+}
+
+body.eye .moon{
+ background:#ffe5a0;
+ box-shadow:0 0 45px rgba(215,160,55,.22);
+}
+
+body.eye header{
+ background:rgba(255,249,235,.96);
+}
+
+body.eye .settings,
+body.eye .stat,
+body.eye .hero,
+body.eye .welcome,
+body.eye .xpCard,
+body.eye .level,
+body.eye .word,
+body.eye .question,
+body.eye .result,
+body.eye .back{
+ background:var(--card);
+}
+
+body.eye .settingsBox{
+ background:#fff8e8;
+}
+
+body.eye .theme,
+body.eye .soundBtn{
+ background:#f8efd9;
+ color:var(--text);
+}
+
+body.eye .theme.active{
+ background:#fff0c9;
+ color:#9c6710;
+}
+
+body.eye .wordNo{
+ background:#f1e4c5;
+ color:#a96d0e;
+}
+
+body.eye .meaning{
+ color:#a96d0e;
+}
+
+/* =========================
+   CELEBRATION
+========================= */
+
+.celebrate{
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ z-index:999;
+ display:none;
+ align-items:center;
+ justify-content:center;
+}
+
+.celebrate.show{
+ display:flex;
+}
+
+.celebrateText{
+ padding:25px 35px;
+ border-radius:25px;
+ background:rgba(255,255,255,.96);
+ color:var(--green);
+ font-size:30px;
+ font-weight:950;
+ box-shadow:0 25px 80px rgba(0,0,0,.18);
+ animation:celebratePop .9s ease forwards;
+}
+
+@keyframes celebratePop{
+ 0%{
+  opacity:0;
+  transform:scale(.4) translateY(40px);
+ }
+ 35%{
+  opacity:1;
+  transform:scale(1.12);
+ }
+ 70%{
+  transform:scale(1);
+ }
+ 100%{
+  opacity:0;
+  transform:scale(.96) translateY(-30px);
+ }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:850px){
+
+ .dashboard{
+  grid-template-columns:1fr;
+ }
+
+ .levelPath{
+  grid-template-columns:repeat(2,1fr);
+ }
+
+}
+
+@media(max-width:550px){
+
+ header{
+  padding:0 4%;
+ }
+
+ .brand{
+  font-size:15px;
+ }
+
+ .stats{
+  gap:5px;
+ }
+
+ .stat{
+  padding:7px 8px;
+  font-size:10px;
+ }
+
+ .settings{
+  width:38px;
+  height:38px;
+ }
+
+ .container{
+  width:93%;
+ }
+
+ .levelPath{
+  grid-template-columns:1fr 1fr;
+  gap:11px;
+ }
+
+ .level{
+  min-height:165px;
+  padding:16px;
+ }
+
+ .circle{
+  width:55px;
+  height:55px;
+ }
+
+ .hero{
+  padding:50px 22px;
+ }
+
+ .hero h1{
+  letter-spacing:-2px;
+ }
+
+ .moon{
+  width:85px;
+  height:85px;
+ }
+
+ .settingsBox{
+  right:10px;
+  width:calc(100% - 20px);
+ }
+
+ .wordEnglish{
+  font-size:18px;
+ }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="sky">
+ <div class="stars"></div>
+ <div class="moon"></div>
+</div>
+
+<!-- =========================
+     START SCREEN
+========================= -->
+
+<section id="start">
+
+ <div class="hero">
+
+  <div class="logoCircle">A+</div>
+
+  <div class="logoBig">
+   ENGLISH VOCABULARY ACADEMY
+  </div>
+
+  <h1>
+   LEARN<br>
+   <span>ENGLISH</span>
+  </h1>
+
+  <p>
+   रोज़ useful English words सीखिए, lessons complete कीजिए,
+   test दीजिए और एक-एक करके नए levels unlock कीजिए।
+  </p>
+
+  <button class="startBtn" onclick="startApp()">
+   START LEARNING
+  </button>
+
+ </div>
+
+</section>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header id="header" style="display:none">
+
+ <div class="brand">
+  VOCAB<span>ACADEMY</span>
+ </div>
+
+ <div class="stats">
+
+  <div class="stat">
+   🔥 <b id="streak">0</b>
+  </div>
+
+  <div class="stat">
+   ⭐ <b id="xp">0</b> XP
+  </div>
+
+  <div class="stat">
+   LEVEL <b id="headerLevel">1</b>
+  </div>
+
+  <button
+   class="settings"
+   onclick="toggleSettings()"
+   aria-label="Settings">
+   ⚙
+  </button>
+
+ </div>
+
+</header>
+
+<!-- =========================
+     SETTINGS
+========================= -->
+
+<div class="settingsBox" id="settingsBox">
+
+ <h3>Settings</h3>
+
+ <div class="settingTitle">
+  Appearance
+ </div>
+
+ <button
+  class="theme"
+  id="whiteTheme"
+  onclick="theme('white')">
+  ☀️ White Mode
+ </button>
+
+ <button
+  class="theme"
+  id="eyeTheme"
+  onclick="theme('eye')">
+  👁 Eye Care Mode
+ </button>
+
+ <div class="settingTitle">
+  Sound
+ </div>
+
+ <button
+  class="soundBtn"
+  onclick="toggleSound()">
+
+  <span>
+   🔊 Learning Sounds
+  </span>
+
+  <span
+   class="soundStatus"
+   id="soundStatus">
+   ON
+  </span>
+
+ </button>
+
+</div>
+
+<!-- =========================
+     HOME
+========================= -->
+
+<main id="app">
+
+ <div class="container">
+
+  <section class="dashboard">
+
+   <div class="welcome">
+
+    <h2>Welcome back, Learner!</h2>
+
+    <p>
+     रोज़ थोड़ा सीखो और अपना English vocabulary strong बनाओ।
+    </p>
+
+    <div class="progressTop">
+
+     <div class="progressLabels">
+
+      <span>
+       Overall progress
+      </span>
+
+      <span id="progressLabel">
+       0%
+      </span>
+
+     </div>
+
+     <div class="progress">
+      <i id="progressBar"></i>
+     </div>
+
+    </div>
+
+   </div>
+
+   <div class="xpCard">
+
+    <div
+     class="xpNumber"
+     id="xpBig">
+     0
+    </div>
+
+    <small>
+     Total XP earned
+    </small>
+
+    <div style="margin-top:18px;color:var(--muted)">
+     Lessons + Tests complete करके XP कमाएँ।
+    </div>
+
+   </div>
+
+  </section>
+
+  <div class="pathTitle">
+
+   <h2>Your Learning Path</h2>
+
+   <span>
+    15 words = 1 level
+   </span>
+
+  </div>
+
+  <section
+   class="levelPath"
+   id="levelPath">
+  </section>
+
+ </div>
+
+</main>
+
+<!-- =========================
+     WORD PAGE
+========================= -->
+
+<section class="page" id="wordPage">
+
+ <button
+  class="back"
+  onclick="home()">
+  ← Levels
+ </button>
+
+ <div class="pageHead">
+
+  <h2 id="lessonTitle">
+   Level 1
+  </h2>
+
+  <p>
+   इन words को ध्यान से पढ़ो और याद करने की कोशिश करो।
+  </p>
+
+ </div>
+
+ <div
+  class="wordList"
+  id="wordList">
+ </div>
+
+ <button
+  class="mainBtn"
+  onclick="startTest()">
+  FINISH LESSON & START TEST →
+ </button>
+
+</section>
+
+<!-- =========================
+     TEST PAGE
+========================= -->
+
+<section class="page" id="testPage">
+
+ <button
+  class="back"
+  onclick="lessonPage()">
+  ← Lesson
+ </button>
+
+ <div class="pageHead">
+
+  <h2 id="testTitle">
+   Level 1 Test
+  </h2>
+
+  <p>
+   कम से कम 75% score करके level unlock करो।
+  </p>
+
+ </div>
+
+ <form id="quiz"></form>
+
+ <button
+  class="mainBtn"
+  onclick="submitTest(event)">
+  SUBMIT TEST
+ </button>
+
+ <div
+  class="result"
+  id="result">
+
+  <h2 id="resultTitle"></h2>
+
+  <p id="resultText"></p>
+
+  <button
+   class="mainBtn"
+   onclick="retry()">
+   TRY AGAIN
+  </button>
+
+  <button
+   class="mainBtn"
+   id="nextBtn"
+   style="display:none"
+   onclick="nextLevel()">
+   CONTINUE TO NEXT LEVEL →
+  </button>
+
+ </div>
+
+</section>
+
+<!-- CELEBRATION -->
+
+<div
+ class="celebrate"
+ id="celebrate">
+
+ <div class="celebrateText">
+  LEVEL COMPLETE ✓
+ </div>
+
+</div>
+
+<script>
+
+/* =========================================================
+   📚 VOCABULARY DATABASE
+
+   FORMAT:
+
+   ["English","उच्चारण","हिंदी अर्थ"],
+
+   उदाहरण:
+
+   ["water","वॉटर","पानी"],
+
+   IMPORTANT:
+   15 WORDS = 1 LEVEL
+
+   नीचे पहले 100 words दिए गए हैं।
+   इनके बाद लगातार नए words paste करते जाएँ।
+
+   ======================================================== */
+
+const vocabulary = [
+
+/* =========================
+   FIRST 100 WORDS
+========================= */
+
+["water","वॉटर","पानी"],
+["food","फूड","भोजन"],
+["house","हाउस","घर"],
+["home","होम","घर"],
+["room","रूम","कमरा"],
+["door","डोर","दरवाज़ा"],
+["window","विंडो","खिड़की"],
+["chair","चेयर","कुर्सी"],
+["table","टेबल","मेज़"],
+["bed","बेड","बिस्तर"],
+["book","बुक","किताब"],
+["pen","पेन","कलम"],
+["paper","पेपर","कागज़"],
+["school","स्कूल","विद्यालय"],
+["college","कॉलेज","महाविद्यालय"],
+
+["office","ऑफिस","कार्यालय"],
+["work","वर्क","काम"],
+["job","जॉब","नौकरी"],
+["company","कंपनी","कंपनी"],
+["manager","मैनेजर","प्रबंधक"],
+["employee","एम्प्लॉयी","कर्मचारी"],
+["meeting","मीटिंग","बैठक"],
+["interview","इंटरव्यू","साक्षात्कार"],
+["question","क्वेश्चन","प्रश्न"],
+["answer","आंसर","उत्तर"],
+["computer","कंप्यूटर","संगणक"],
+["phone","फोन","दूरभाष"],
+["message","मैसेज","संदेश"],
+["email","ईमेल","ई-मेल"],
+["document","डॉक्यूमेंट","दस्तावेज़"],
+
+["morning","मॉर्निंग","सुबह"],
+["afternoon","आफ्टरनून","दोपहर"],
+["evening","ईवनिंग","शाम"],
+["night","नाइट","रात"],
+["today","टुडे","आज"],
+["tomorrow","टुमॉरो","कल"],
+["yesterday","येस्टर्डे","बीता हुआ कल"],
+["time","टाइम","समय"],
+["day","डे","दिन"],
+["week","वीक","सप्ताह"],
+["month","मंथ","महीना"],
+["year","ईयर","वर्ष"],
+["early","अर्ली","जल्दी"],
+["late","लेट","देर से"],
+["now","नाउ","अभी"],
+
+["come","कम","आना"],
+["go","गो","जाना"],
+["eat","ईट","खाना"],
+["drink","ड्रिंक","पीना"],
+["sleep","स्लीप","सोना"],
+["wake","वेक","जागना"],
+["sit","सिट","बैठना"],
+["stand","स्टैंड","खड़ा होना"],
+["walk","वॉक","चलना"],
+["run","रन","दौड़ना"],
+["read","रीड","पढ़ना"],
+["write","राइट","लिखना"],
+["speak","स्पीक","बोलना"],
+["listen","लिसन","सुनना"],
+["learn","लर्न","सीखना"],
+
+["good","गुड","अच्छा"],
+["bad","बैड","बुरा"],
+["big","बिग","बड़ा"],
+["small","स्मॉल","छोटा"],
+["new","न्यू","नया"],
+["old","ओल्ड","पुराना"],
+["easy","ईज़ी","आसान"],
+["difficult","डिफिकल्ट","कठिन"],
+["important","इम्पॉर्टेंट","महत्वपूर्ण"],
+["ready","रेडी","तैयार"],
+["busy","बिज़ी","व्यस्त"],
+["free","फ्री","खाली"],
+["happy","हैप्पी","खुश"],
+["sad","सैड","उदास"],
+["tired","टायर्ड","थका हुआ"],
+
+["money","मनी","पैसा"],
+["price","प्राइस","कीमत"],
+["shop","शॉप","दुकान"],
+["market","मार्केट","बाज़ार"],
+["buy","बाय","खरीदना"],
+["sell","सेल","बेचना"],
+["pay","पे","भुगतान करना"],
+["cash","कैश","नकद"],
+["change","चेंज","बकाया पैसा"],
+["bag","बैग","थैला"],
+["clothes","क्लोथ्स","कपड़े"],
+["shoe","शू","जूता"],
+["bus","बस","बस"],
+["train","ट्रेन","रेल गाड़ी"],
+["ticket","टिकट","प्रवेश-पत्र"],
+
+["help","हेल्प","मदद"],
+["need","नीड","ज़रूरत होना"],
+["want","वॉन्ट","चाहना"],
+["know","नो","जानना"],
+["understand","अंडरस्टैंड","समझना"],
+["remember","रिमेम्बर","याद रखना"],
+["forget","फॉरगेट","भूलना"],
+["try","ट्राय","प्रयास करना"],
+["start","स्टार्ट","शुरू करना"],
+["finish","फिनिश","समाप्त करना"],
+
+
+/* =========================================================
+   ⬇️⬇️⬇️ PASTE MORE WORDS HERE ⬇️⬇️⬇️
+
+   PART 2, PART 3, PART 4...
+   के सारे words इसी जगह लगातार paste करें।
+
+   हर word के बाद comma लगाएँ।
+
+   Example:
+
+   ["beautiful","ब्यूटिफुल","सुंदर"],
+   ["strong","स्ट्रॉन्ग","मज़बूत"],
+   ["clean","क्लीन","साफ़"],
+
+   फिर उसके नीचे अगला word...
+
+   IMPORTANT:
+   आखिरी word के बाद comma नहीं चाहिए
+   अगर उसके बाद नया word नहीं है।
+
+   ========================================================= */
+
+
+/* 👇 यहाँ से अपने नए words डालना शुरू करो 👇 */
+
+
+
+/* 👆 नए words यहाँ तक paste करो 👆 */  
+
+["family","फैमिली","परिवार"],
+["father","फादर","पिता"],
+["mother","मदर","माता"],
+["brother","ब्रदर","भाई"],
+["sister","सिस्टर","बहन"],
+["parents","पेरेंट्स","माता-पिता"],
+["child","चाइल्ड","बच्चा"],
+["children","चिल्ड्रन","बच्चे"],
+["friend","फ्रेंड","दोस्त"],
+["neighbor","नेबर","पड़ोसी"],
+["guest","गेस्ट","मेहमान"],
+["person","पर्सन","व्यक्ति"],
+["people","पीपल","लोग"],
+["man","मैन","आदमी"],
+["woman","वुमन","महिला"],
+["boy","बॉय","लड़का"],
+["girl","गर्ल","लड़की"],
+["name","नेम","नाम"],
+["age","एज","उम्र"],
+["address","एड्रेस","पता"],
+
+["kitchen","किचन","रसोई"],
+["bathroom","बाथरूम","स्नानघर"],
+["floor","फ्लोर","फर्श"],
+["wall","वॉल","दीवार"],
+["roof","रूफ","छत"],
+["garden","गार्डन","बगीचा"],
+["yard","यार्ड","आँगन"],
+["light","लाइट","रोशनी"],
+["fan","फैन","पंखा"],
+["switch","स्विच","बिजली का स्विच"],
+["key","की","चाबी"],
+["lock","लॉक","ताला"],
+["mirror","मिरर","आईना"],
+["towel","टॉवल","तौलिया"],
+["soap","सोप","साबुन"],
+["brush","ब्रश","ब्रश"],
+["toothpaste","टूथपेस्ट","दंतमंजन"],
+["kettle","केटल","केतली"],
+["plate","प्लेट","थाली"],
+["glass","ग्लास","गिलास"],
+
+["rice","राइस","चावल"],
+["bread","ब्रेड","डबलरोटी"],
+["milk","मिल्क","दूध"],
+["tea","टी","चाय"],
+["sugar","शुगर","चीनी"],
+["salt","सॉल्ट","नमक"],
+["oil","ऑयल","तेल"],
+["fruit","फ्रूट","फल"],
+["vegetable","वेजिटेबल","सब्ज़ी"],
+["apple","ऐपल","सेब"],
+["banana","बनाना","केला"],
+["potato","पोटैटो","आलू"],
+["tomato","टोमैटो","टमाटर"],
+["onion","अनियन","प्याज़"],
+["egg","एग","अंडा"],
+["meat","मीट","मांस"],
+["fish","फिश","मछली"],
+["breakfast","ब्रेकफास्ट","नाश्ता"],
+["lunch","लंच","दोपहर का भोजन"],
+["dinner","डिनर","रात का भोजन"],
+
+["wash","वॉश","धोना"],
+["cook","कुक","पकाना"],
+["cut","कट","काटना"],
+["open","ओपन","खोलना"],
+["close","क्लोज़","बंद करना"],
+["bring","ब्रिंग","लाना"],
+["take","टेक","लेना"],
+["give","गिव","देना"],
+["keep","कीप","रखना"],
+["put","पुट","रख देना"],
+["make","मेक","बनाना"],
+["do","डू","करना"],
+["use","यूज़","इस्तेमाल करना"],
+["find","फाइंड","ढूँढना"],
+["show","शो","दिखाना"],
+["tell","टेल","बताना"],
+["ask","आस्क","पूछना"],
+["call","कॉल","फोन करना"],
+["wait","वेट","इंतज़ार करना"],
+["move","मूव","हिलना"],
+
+["beautiful","ब्यूटिफुल","सुंदर"],
+["clean","क्लीन","साफ़"],
+["dirty","डर्टी","गंदा"],
+["strong","स्ट्रॉन्ग","मज़बूत"],
+["weak","वीक","कमज़ोर"],
+["fast","फास्ट","तेज़"],
+["slow","स्लो","धीमा"],
+["hot","हॉट","गरम"],
+["cold","कोल्ड","ठंडा"],
+["full","फुल","भरा हुआ"],
+["empty","एम्प्टी","खाली"],
+["right","राइट","सही"],
+["wrong","रॉन्ग","गलत"],
+["true","ट्रू","सच्चा"],
+["false","फॉल्स","झूठा"],
+["safe","सेफ","सुरक्षित"],
+["dangerous","डेंजरस","खतरनाक"],
+["simple","सिम्पल","सरल"],
+["special","स्पेशल","विशेष"],
+["different","डिफरेंट","अलग"]
+["always","ऑलवेज़","हमेशा"],
+["never","नेवर","कभी नहीं"],
+["often","ऑफन","अक्सर"],
+["sometimes","समटाइम्स","कभी-कभी"],
+["usually","यूज़ुअली","आमतौर पर"],
+["again","अगेन","फिर से"],
+["already","ऑलरेडी","पहले ही"],
+["still","स्टिल","अभी भी"],
+["soon","सून","जल्द"],
+["later","लेटर","बाद में"],
+["before","बिफोर","पहले"],
+["after","आफ्टर","बाद"],
+["together","टुगेदर","साथ में"],
+["alone","अलोन","अकेला"],
+["here","हियर","यहाँ"],
+["there","देयर","वहाँ"],
+["inside","इनसाइड","अंदर"],
+["outside","आउटसाइड","बाहर"],
+["near","नियर","पास"],
+["far","फार","दूर"],
+
+["because","बिकॉज़","क्योंकि"],
+["although","ऑल्दो","हालाँकि"],
+["but","बट","लेकिन"],
+["and","ऐंड","और"],
+["or","ऑर","या"],
+["if","इफ","अगर"],
+["then","देन","तब"],
+["also","ऑल्सो","भी"],
+["only","ओनली","केवल"],
+["just","जस्ट","बस"],
+["maybe","मेबी","शायद"],
+["really","रियली","वास्तव में"],
+["very","वेरी","बहुत"],
+["more","मोर","अधिक"],
+["less","लेस","कम"],
+["enough","इनफ","पर्याप्त"],
+["almost","ऑलमोस्ट","लगभग"],
+["together","टुगेदर","साथ में"],
+["without","विदआउट","बिना"],
+["against","अगेन्स्ट","विरुद्ध"],
+
+["please","प्लीज़","कृपया"],
+["sorry","सॉरी","माफ़ कीजिए"],
+["thanks","थैंक्स","धन्यवाद"],
+["welcome","वेलकम","स्वागत"],
+["excuse","एक्सक्यूज़","क्षमा करना"],
+["hello","हेलो","नमस्ते"],
+["goodbye","गुडबाय","अलविदा"],
+["okay","ओके","ठीक है"],
+["sure","श्योर","ज़रूर"],
+["fine","फाइन","ठीक"],
+["great","ग्रेट","बहुत अच्छा"],
+["problem","प्रॉब्लम","समस्या"],
+["reason","रीज़न","कारण"],
+["idea","आइडिया","विचार"],
+["plan","प्लान","योजना"],
+["chance","चांस","मौका"],
+["choice","चॉइस","चुनाव"],
+["example","एग्ज़ाम्पल","उदाहरण"],
+["meaning","मीनिंग","अर्थ"],
+["language","लैंग्वेज","भाषा"],
+
+["class","क्लास","कक्षा"],
+["teacher","टीचर","अध्यापक"],
+["student","स्टूडेंट","विद्यार्थी"],
+["lesson","लेसन","पाठ"],
+["subject","सब्जेक्ट","विषय"],
+["exam","एग्ज़ाम","परीक्षा"],
+["result","रिज़ल्ट","परिणाम"],
+["mark","मार्क","अंक"],
+["course","कोर्स","पाठ्यक्रम"],
+["library","लाइब्रेरी","पुस्तकालय"],
+["library","लाइब्रेरी","पुस्तकालय"],
+["project","प्रोजेक्ट","परियोजना"],
+["practice","प्रैक्टिस","अभ्यास"],
+["skill","स्किल","कौशल"],
+["experience","एक्सपीरियंस","अनुभव"],
+["career","करियर","व्यवसायिक जीवन"],
+["future","फ्यूचर","भविष्य"],
+["goal","गोल","लक्ष्य"],
+["success","सक्सेस","सफलता"],
+["failure","फेल्योर","असफलता"],
+
+["send","सेंड","भेजना"],
+["receive","रिसीव","प्राप्त करना"],
+["check","चेक","जाँच करना"],
+["reply","रिप्लाई","जवाब देना"],
+["join","जॉइन","शामिल होना"],
+["leave","लीव","छोड़ना"],
+["follow","फॉलो","अनुसरण करना"],
+["lead","लीड","नेतृत्व करना"],
+["choose","चूज़","चुनना"],
+["decide","डिसाइड","निर्णय लेना"],
+["agree","अग्री","सहमत होना"],
+["disagree","डिसअग्री","असहमत होना"],
+["believe","बिलीव","विश्वास करना"],
+["hope","होप","आशा करना"],
+["feel","फील","महसूस करना"],
+["think","थिंक","सोचना"],
+["speak","स्पीक","बोलना"],
+["explain","एक्सप्लेन","समझाना"],
+["improve","इम्प्रूव","सुधारना"],
+["continue","कंटिन्यू","जारी रखना"]["carry","कैरी","ले जाना"],
+["hold","होल्ड","पकड़ना"],
+["touch","टच","छूना"],
+["turn","टर्न","मुड़ना"],
+["stop","स्टॉप","रुकना"],
+["reach","रीच","पहुँचना"],
+["return","रिटर्न","वापस आना"],
+["enter","एंटर","प्रवेश करना"],
+["exit","एग्ज़िट","बाहर निकलना"],
+["travel","ट्रैवल","यात्रा करना"],
+["drive","ड्राइव","गाड़ी चलाना"],
+["ride","राइड","सवारी करना"],
+["fly","फ्लाई","उड़ना"],
+["cross","क्रॉस","पार करना"],
+["pass","पास","गुज़रना"],
+["follow","फॉलो","पीछे चलना"],
+["visit","विज़िट","मुलाकात करना"],
+["meet","मीट","मिलना"],
+["stay","स्टे","ठहरना"],
+["live","लिव","रहना"],
+
+["road","रोड","सड़क"],
+["street","स्ट्रीट","गली"],
+["place","प्लेस","स्थान"],
+["city","सिटी","शहर"],
+["village","विलेज","गाँव"],
+["station","स्टेशन","स्टेशन"],
+["airport","एयरपोर्ट","हवाई अड्डा"],
+["hotel","होटल","होटल"],
+["hospital","हॉस्पिटल","अस्पताल"],
+["bank","बैंक","बैंक"],
+["restaurant","रेस्टोरेंट","भोजनालय"],
+["building","बिल्डिंग","इमारत"],
+["room","रूम","कमरा"],
+["office","ऑफिस","कार्यालय"],
+["school","स्कूल","विद्यालय"],
+["college","कॉलेज","महाविद्यालय"],
+["park","पार्क","उद्यान"],
+["bridge","ब्रिज","पुल"],
+["corner","कॉर्नर","कोना"],
+["area","एरिया","क्षेत्र"],
+
+["number","नंबर","संख्या"],
+["amount","अमाउंट","राशि"],
+["total","टोटल","कुल"],
+["part","पार्ट","हिस्सा"],
+["piece","पीस","टुकड़ा"],
+["kind","काइंड","प्रकार"],
+["type","टाइप","प्रकार"],
+["size","साइज़","आकार"],
+["color","कलर","रंग"],
+["shape","शेप","आकार"],
+["line","लाइन","रेखा"],
+["point","पॉइंट","बिंदु"],
+["side","साइड","तरफ"],
+["middle","मिडल","बीच"],
+["front","फ्रंट","सामने"],
+["back","बैक","पीछे"],
+["top","टॉप","ऊपर का भाग"],
+["bottom","बॉटम","नीचे का भाग"],
+["beginning","बिगिनिंग","शुरुआत"],
+["end","एंड","अंत"],
+
+["head","हेड","सिर"],
+["face","फेस","चेहरा"],
+["eye","आई","आँख"],
+["ear","ईयर","कान"],
+["nose","नोज़","नाक"],
+["mouth","माउथ","मुँह"],
+["hand","हैंड","हाथ"],
+["finger","फिंगर","उंगली"],
+["arm","आर्म","बाँह"],
+["leg","लेग","टाँग"],
+["foot","फुट","पैर"],
+["hair","हेयर","बाल"],
+["heart","हार्ट","हृदय"],
+["body","बॉडी","शरीर"],
+["health","हेल्थ","स्वास्थ्य"],
+["doctor","डॉक्टर","चिकित्सक"],
+["medicine","मेडिसिन","दवा"],
+["pain","पेन","दर्द"],
+["rest","रेस्ट","आराम"],
+["exercise","एक्सरसाइज़","व्यायाम"],
+
+["mobile","मोबाइल","मोबाइल फोन"],
+["screen","स्क्रीन","पर्दा"],
+["keyboard","कीबोर्ड","कुंजीपटल"],
+["mouse","माउस","माउस"],
+["charger","चार्जर","बैटरी चार्ज करने का उपकरण"],
+["battery","बैटरी","बैटरी"],
+["internet","इंटरनेट","अंतरजाल"],
+["website","वेबसाइट","वेबसाइट"],
+["video","वीडियो","चलचित्र"],
+["photo","फोटो","चित्र"],
+["camera","कैमरा","कैमरा"],
+["file","फाइल","दस्तावेज़"],
+["folder","फोल्डर","फ़ोल्डर"],
+["password","पासवर्ड","गुप्त शब्द"],
+["account","अकाउंट","खाता"],
+["number","नंबर","संख्या"],
+["online","ऑनलाइन","इंटरनेट पर"],
+["offline","ऑफलाइन","इंटरनेट से अलग"],
+["download","डाउनलोड","उतारना"],
+["upload","अपलोड","चढ़ाना"]["accept","अक्सेप्ट","स्वीकार करना"],
+["add","ऐड","जोड़ना"],
+["allow","अलाउ","अनुमति देना"],
+["appear","अपीयर","दिखाई देना"],
+["apply","अप्लाई","आवेदन करना"],
+["arrange","अरेंज","व्यवस्थित करना"],
+["arrive","अराइव","पहुँचना"],
+["ask","आस्क","पूछना"],
+["avoid","अवॉइड","बचना"],
+["become","बिकम","बनना"],
+["begin","बिगिन","आरंभ करना"],
+["borrow","बॉरो","उधार लेना"],
+["break","ब्रेक","तोड़ना"],
+["bring","ब्रिंग","लाना"],
+["build","बिल्ड","बनाना"],
+["call","कॉल","बुलाना / फोन करना"],
+["cancel","कैंसल","रद्द करना"],
+["catch","कैच","पकड़ना"],
+["change","चेंज","बदलना"],
+["clean","क्लीन","साफ़ करना"],
+
+["close","क्लोज़","बंद करना"],
+["collect","कलेक्ट","इकट्ठा करना"],
+["compare","कम्पेयर","तुलना करना"],
+["complete","कम्प्लीट","पूरा करना"],
+["connect","कनेक्ट","जोड़ना"],
+["consider","कन्सिडर","विचार करना"],
+["contact","कॉन्टैक्ट","संपर्क करना"],
+["cook","कुक","खाना पकाना"],
+["copy","कॉपी","नकल करना"],
+["correct","करेक्ट","सही करना"],
+["count","काउंट","गिनना"],
+["cover","कवर","ढकना"],
+["create","क्रिएट","बनाना"],
+["cut","कट","काटना"],
+["deliver","डिलिवर","पहुँचाना"],
+["describe","डिस्क्राइब","वर्णन करना"],
+["develop","डेवलप","विकसित करना"],
+["discover","डिस्कवर","खोज करना"],
+["discuss","डिस्कस","चर्चा करना"],
+["draw","ड्रॉ","चित्र बनाना"],
+
+["drop","ड्रॉप","गिराना"],
+["earn","अर्न","कमाना"],
+["encourage","एन्करेज","प्रोत्साहित करना"],
+["enjoy","एन्जॉय","आनंद लेना"],
+["expect","एक्सपेक्ट","उम्मीद करना"],
+["fill","फिल","भरना"],
+["find","फाइंड","ढूँढना"],
+["fix","फिक्स","ठीक करना"],
+["grow","ग्रो","बढ़ना"],
+["guess","गेस","अनुमान लगाना"],
+["happen","हैपन","होना"],
+["hate","हेट","नफ़रत करना"],
+["imagine","इमैजिन","कल्पना करना"],
+["include","इन्क्लूड","शामिल करना"],
+["introduce","इंट्रोड्यूस","परिचय कराना"],
+["invite","इनवाइट","आमंत्रित करना"],
+["keep","कीप","रखना"],
+["kill","किल","मारना"],
+["knock","नॉक","खटखटाना"],
+["laugh","लाफ","हँसना"],
+
+["lend","लेंड","उधार देना"],
+["like","लाइक","पसंद करना"],
+["lose","लूज़","खोना"],
+["manage","मैनेज","प्रबंध करना"],
+["mention","मेन्शन","उल्लेख करना"],
+["move","मूव","हिलना / स्थान बदलना"],
+["offer","ऑफर","प्रस्ताव देना"],
+["order","ऑर्डर","आदेश देना"],
+["own","ओन","स्वामित्व रखना"],
+["prepare","प्रिपेयर","तैयार करना"],
+["protect","प्रोटेक्ट","सुरक्षा करना"],
+["provide","प्रोवाइड","उपलब्ध कराना"],
+["receive","रिसीव","प्राप्त करना"],
+["recognize","रेकग्नाइज़","पहचानना"],
+["reduce","रिड्यूस","कम करना"],
+["refuse","रिफ्यूज़","मना करना"],
+["remove","रिमूव","हटाना"],
+["repair","रिपेयर","मरम्मत करना"],
+["repeat","रिपीट","दोहराना"],
+["replace","रिप्लेस","बदल देना"],
+
+["save","सेव","बचाना / सुरक्षित करना"],
+["search","सर्च","खोजना"],
+["seem","सीम","प्रतीत होना"],
+["share","शेयर","साझा करना"],
+["show","शो","दिखाना"],
+["sign","साइन","हस्ताक्षर करना"],
+["solve","सॉल्व","हल करना"],
+["spend","स्पेंड","खर्च करना"],
+["store","स्टोर","संग्रह करना"],
+["support","सपोर्ट","समर्थन करना"],
+["teach","टीच","सिखाना"],
+["tell","टेल","बताना"],
+["throw","थ्रो","फेंकना"],
+["train","ट्रेन","प्रशिक्षण देना"],
+["trust","ट्रस्ट","भरोसा करना"],
+["use","यूज़","उपयोग करना"],
+["wait","वेट","प्रतीक्षा करना"],
+["wear","वेयर","पहनना"],
+["win","विन","जीतना"],
+["wish","विश","इच्छा करना"]["act","ऐक्ट","कार्य करना"],
+["add","ऐड","जोड़ना"],
+["admit","अडमिट","स्वीकार करना"],
+["advise","एडवाइज़","सलाह देना"],
+["afford","अफोर्ड","खर्च उठा पाना"],
+["answer","आंसर","उत्तर देना"],
+["appear","अपीयर","दिखाई देना"],
+["attend","अटेंड","उपस्थित होना"],
+["belong","बिलॉन्ग","संबंधित होना"],
+["care","केयर","परवाह करना"],
+["check","चेक","जाँच करना"],
+["choose","चूज़","चुनना"],
+["communicate","कम्यूनिकेट","बातचीत करना"],
+["complain","कम्प्लेन","शिकायत करना"],
+["confirm","कन्फर्म","पुष्टि करना"],
+["contain","कन्टेन","समाहित करना"],
+["control","कंट्रोल","नियंत्रण करना"],
+["depend","डिपेंड","निर्भर होना"],
+["design","डिज़ाइन","रचना करना"],
+["destroy","डिस्ट्रॉय","नष्ट करना"],
+
+["divide","डिवाइड","विभाजित करना"],
+["dress","ड्रेस","कपड़े पहनना"],
+["drive","ड्राइव","गाड़ी चलाना"],
+["educate","एजुकेट","शिक्षित करना"],
+["encourage","एन्करेज","प्रोत्साहित करना"],
+["enter","एंटर","प्रवेश करना"],
+["escape","एस्केप","बच निकलना"],
+["exist","एग्ज़िस्ट","मौजूद होना"],
+["fail","फेल","असफल होना"],
+["fear","फियर","डरना"],
+["feed","फीड","खिलाना"],
+["fight","फाइट","लड़ना"],
+["fill","फिल","भरना"],
+["focus","फोकस","ध्यान केंद्रित करना"],
+["force","फोर्स","मजबूर करना"],
+["guess","गेस","अनुमान लगाना"],
+["handle","हैंडल","संभालना"],
+["hurry","हरी","जल्दी करना"],
+["identify","आइडेंटिफाइ","पहचानना"],
+["imagine","इमैजिन","कल्पना करना"],
+
+["impress","इम्प्रेस","प्रभावित करना"],
+["increase","इन्क्रीज़","बढ़ाना"],
+["inform","इन्फॉर्म","सूचित करना"],
+["intend","इन्टेन्ड","इरादा रखना"],
+["introduce","इंट्रोड्यूस","परिचय कराना"],
+["invite","इनवाइट","बुलाना"],
+["jump","जम्प","कूदना"],
+["kick","किक","लात मारना"],
+["kiss","किस","चूमना"],
+["knock","नॉक","खटखटाना"],
+["laugh","लाफ","हँसना"],
+["lift","लिफ्ट","उठाना"],
+["lock","लॉक","ताला लगाना"],
+["matter","मैटर","महत्व रखना"],
+["notice","नोटिस","ध्यान देना"],
+["offer","ऑफर","प्रस्ताव देना"],
+["own","ओन","मालिक होना"],
+["prefer","प्रिफर","अधिक पसंद करना"],
+["prevent","प्रिवेंट","रोकना"],
+["promise","प्रॉमिस","वादा करना"],
+
+["prove","प्रूव","साबित करना"],
+["pull","पुल","खींचना"],
+["push","पुश","धक्का देना"],
+["raise","रेज़","उठाना"],
+["realize","रियलाइज़","समझ जाना"],
+["receive","रिसीव","प्राप्त करना"],
+["recognize","रेकग्नाइज़","पहचानना"],
+["recommend","रेकमेंड","सिफारिश करना"],
+["refuse","रिफ्यूज़","मना करना"],
+["relax","रिलैक्स","आराम करना"],
+["remain","रिमेन","बना रहना"],
+["remove","रिमूव","हटाना"],
+["repair","रिपेयर","मरम्मत करना"],
+["report","रिपोर्ट","रिपोर्ट करना"],
+["require","रिक्वायर","आवश्यक होना"],
+["respect","रिस्पेक्ट","सम्मान करना"],
+["respond","रिस्पॉन्ड","जवाब देना"],
+["risk","रिस्क","जोखिम उठाना"],
+["save","सेव","बचाना"],
+["separate","सेपरेट","अलग करना"],
+
+["serve","सर्व","सेवा करना"],
+["share","शेयर","साझा करना"],
+["shout","शाउट","चिल्लाना"],
+["smile","स्माइल","मुस्कुराना"],
+["smoke","स्मोक","धूम्रपान करना"],
+["solve","सॉल्व","हल करना"],
+["steal","स्टील","चोरी करना"],
+["stick","स्टिक","चिपकाना"],
+["suggest","सजेस्ट","सुझाव देना"],
+["surprise","सरप्राइज़","आश्चर्यचकित करना"],
+["swim","स्विम","तैरना"],
+["taste","टेस्ट","स्वाद लेना"],
+["touch","टच","छूना"],
+["translate","ट्रांसलेट","अनुवाद करना"],
+["treat","ट्रीट","व्यवहार करना"],
+["understand","अंडरस्टैंड","समझना"],
+["visit","विज़िट","मुलाकात करना"],
+["vote","वोट","मत देना"],
+["welcome","वेलकम","स्वागत करना"],
+["wonder","वंडर","आश्चर्य करना"]["ability","अबिलिटी","क्षमता"],
+["activity","ऐक्टिविटी","गतिविधि"],
+["advice","एडवाइस","सलाह"],
+["appointment","अपॉइंटमेंट","मुलाकात का समय"],
+["attention","अटेंशन","ध्यान"],
+["behavior","बिहेवियर","व्यवहार"],
+["benefit","बेनिफिट","लाभ"],
+["business","बिज़नेस","व्यवसाय"],
+["chance","चांस","अवसर"],
+["challenge","चैलेंज","चुनौती"],
+["condition","कंडीशन","स्थिति"],
+["conversation","कन्वर्सेशन","बातचीत"],
+["customer","कस्टमर","ग्राहक"],
+["decision","डिसीजन","निर्णय"],
+["department","डिपार्टमेंट","विभाग"],
+["detail","डीटेल","विवरण"],
+["difference","डिफरेंस","अंतर"],
+["direction","डायरेक्शन","दिशा"],
+["discussion","डिस्कशन","चर्चा"],
+["education","एजुकेशन","शिक्षा"],
+
+["effort","एफर्ट","प्रयास"],
+["energy","एनर्जी","ऊर्जा"],
+["environment","एनवायरनमेंट","पर्यावरण"],
+["event","इवेंट","कार्यक्रम"],
+["experience","एक्सपीरियंस","अनुभव"],
+["fact","फैक्ट","तथ्य"],
+["favorite","फेवरेट","पसंदीदा"],
+["feature","फीचर","विशेषता"],
+["future","फ्यूचर","भविष्य"],
+["habit","हैबिट","आदत"],
+["health","हेल्थ","स्वास्थ्य"],
+["information","इन्फॉर्मेशन","जानकारी"],
+["interest","इंटरेस्ट","रुचि"],
+["knowledge","नॉलेज","ज्ञान"],
+["location","लोकेशन","स्थान"],
+["message","मैसेज","संदेश"],
+["mistake","मिस्टेक","गलती"],
+["opinion","ओपिनियन","राय"],
+["permission","परमिशन","अनुमति"],
+["possibility","पॉसिबिलिटी","संभावना"],
+
+["purpose","पर्पज़","उद्देश्य"],
+["quality","क्वालिटी","गुणवत्ता"],
+["relationship","रिलेशनशिप","संबंध"],
+["request","रिक्वेस्ट","अनुरोध"],
+["responsibility","रिस्पॉन्सिबिलिटी","ज़िम्मेदारी"],
+["service","सर्विस","सेवा"],
+["situation","सिचुएशन","स्थिति"],
+["solution","सॉल्यूशन","समाधान"],
+["support","सपोर्ट","सहायता"],
+["task","टास्क","कार्य"],
+["team","टीम","दल"],
+["training","ट्रेनिंग","प्रशिक्षण"],
+["truth","ट्रुथ","सच्चाई"],
+["value","वैल्यू","मूल्य"],
+["voice","वॉइस","आवाज़"],
+["way","वे","तरीका"],
+["workplace","वर्कप्लेस","कार्यस्थल"],
+["world","वर्ल्ड","दुनिया"],
+["choice","चॉइस","विकल्प"],
+["habit","हैबिट","आदत"],
+
+["available","अवेलेबल","उपलब्ध"],
+["common","कॉमन","सामान्य"],
+["comfortable","कम्फर्टेबल","आरामदायक"],
+["confident","कॉन्फिडेंट","आत्मविश्वासी"],
+["correct","करेक्ट","सही"],
+["clear","क्लियर","स्पष्ट"],
+["careful","केयरफुल","सावधान"],
+["crowded","क्राउडेड","भीड़भाड़ वाला"],
+["dangerous","डेंजरस","खतरनाक"],
+["different","डिफरेंट","अलग"],
+["difficult","डिफिकल्ट","कठिन"],
+["famous","फेमस","प्रसिद्ध"],
+["fresh","फ्रेश","ताज़ा"],
+["friendly","फ्रेंडली","मिलनसार"],
+["healthy","हेल्दी","स्वस्थ"],
+["honest","ऑनेस्ट","ईमानदार"],
+["kind","काइंड","दयालु"],
+["lucky","लकी","भाग्यशाली"],
+["necessary","नेसेसरी","आवश्यक"],
+["possible","पॉसिबल","संभव"],
+
+["probably","प्रॉबब्ली","संभवतः"],
+["quickly","क्विकली","जल्दी से"],
+["carefully","केयरफुली","सावधानी से"],
+["easily","ईज़िली","आसानी से"],
+["finally","फाइनली","अंततः"],
+["usually","यूज़ुअली","आमतौर पर"],
+["especially","एस्पेशली","विशेष रूप से"],
+["exactly","एग्ज़ैक्टली","बिल्कुल सही रूप से"],
+["actually","ऐक्चुअली","वास्तव में"],
+["certainly","सर्टनली","निश्चित रूप से"],
+["together","टुगेदर","एक साथ"],
+["instead","इन्स्टेड","इसके बजाय"],
+["perhaps","परहैप्स","शायद"],
+["recently","रीसेंटली","हाल ही में"],
+["directly","डायरेक्टली","सीधे तौर पर"],
+["slowly","स्लोली","धीरे-धीरे"],
+["carelessly","केयरलेसली","लापरवाही से"],
+["seriously","सीरियसली","गंभीरता से"],
+["normally","नॉर्मली","सामान्य रूप से"],
+["simply","सिम्पली","सरल रूप से"]["accounting","अकाउंटिंग","लेखा-जोखा"],
+["application","एप्लिकेशन","आवेदन"],
+["appointment","अपॉइंटमेंट","मुलाकात का समय"],
+["assignment","असाइनमेंट","दिया गया कार्य"],
+["businessman","बिज़नेसमैन","व्यवसायी"],
+["colleague","कॉलीग","सहकर्मी"],
+["customer","कस्टमर","ग्राहक"],
+["employer","एम्प्लॉयर","नियोक्ता"],
+["interviewer","इंटरव्यूअर","साक्षात्कार लेने वाला"],
+["leader","लीडर","नेता"],
+["worker","वर्कर","कामगार"],
+["salary","सैलरी","वेतन"],
+["income","इनकम","आय"],
+["payment","पेमेंट","भुगतान"],
+["meeting","मीटिंग","बैठक"],
+["schedule","शेड्यूल","समय-सारणी"],
+["deadline","डेडलाइन","अंतिम समय"],
+["target","टारगेट","लक्ष्य"],
+["position","पोज़िशन","पद"],
+["career","करियर","व्यावसायिक जीवन"],
+
+["application","एप्लिकेशन","आवेदन"],
+["certificate","सर्टिफिकेट","प्रमाणपत्र"],
+["degree","डिग्री","उपाधि"],
+["knowledge","नॉलेज","ज्ञान"],
+["subject","सब्जेक्ट","विषय"],
+["chapter","चैप्टर","अध्याय"],
+["questionnaire","क्वेश्चनेयर","प्रश्नावली"],
+["answer","आंसर","उत्तर"],
+["notebook","नोटबुक","कॉपी"],
+["pencil","पेंसिल","पेंसिल"],
+["eraser","इरेज़र","रबर"],
+["ruler","रूलर","पैमाना"],
+["blackboard","ब्लैकबोर्ड","श्यामपट"],
+["classroom","क्लासरूम","कक्षा-कक्ष"],
+["principal","प्रिंसिपल","प्रधानाचार्य"],
+["professor","प्रोफेसर","प्राध्यापक"],
+["lecture","लेक्चर","व्याख्यान"],
+["subjective","सब्जेक्टिव","व्यक्तिनिष्ठ"],
+["objective","ऑब्जेक्टिव","वस्तुनिष्ठ"],
+["revision","रिविज़न","पुनरावृत्ति"],
+
+["breakfast","ब्रेकफास्ट","नाश्ता"],
+["lunchbox","लंचबॉक्स","भोजन का डिब्बा"],
+["dinnerware","डिनरवेयर","खाने के बर्तन"],
+["spoon","स्पून","चम्मच"],
+["fork","फोर्क","काँटा"],
+["knife","नाइफ","चाकू"],
+["bottle","बॉटल","बोतल"],
+["cup","कप","प्याला"],
+["bowl","बोल","कटोरा"],
+["kitchen","किचन","रसोई"],
+["stove","स्टोव","चूल्हा"],
+["gas","गैस","गैस"],
+["refrigerator","रिफ्रिजरेटर","फ्रिज"],
+["freezer","फ्रीज़र","बर्फ रखने का यंत्र"],
+["spice","स्पाइस","मसाला"],
+["flour","फ्लावर","आटा"],
+["watermelon","वॉटरमेलन","तरबूज़"],
+["orange","ऑरेंज","संतरा"],
+["grape","ग्रेप","अंगूर"],
+["lemon","लेमन","नींबू"],
+
+["weather","वेदर","मौसम"],
+["rain","रेन","बारिश"],
+["cloud","क्लाउड","बादल"],
+["wind","विंड","हवा"],
+["storm","स्टॉर्म","तूफ़ान"],
+["summer","समर","गर्मी का मौसम"],
+["winter","विंटर","सर्दी का मौसम"],
+["spring","स्प्रिंग","वसंत ऋतु"],
+["autumn","ऑटम","पतझड़"],
+["sunshine","सनशाइन","धूप"],
+["temperature","टेम्परेचर","तापमान"],
+["river","रिवर","नदी"],
+["mountain","माउंटेन","पहाड़"],
+["forest","फॉरेस्ट","जंगल"],
+["tree","ट्री","पेड़"],
+["flower","फ्लावर","फूल"],
+["plant","प्लांट","पौधा"],
+["animal","ऐनिमल","जानवर"],
+["bird","बर्ड","पक्षी"],
+["earth","अर्थ","पृथ्वी"],
+
+["morning","मॉर्निंग","सुबह"],
+["weekend","वीकेंड","सप्ताहांत"],
+["holiday","हॉलिडे","छुट्टी"],
+["birthday","बर्थडे","जन्मदिन"],
+["festival","फेस्टिवल","त्योहार"],
+["January","जैन्युअरी","जनवरी"],
+["February","फेब्रुअरी","फ़रवरी"],
+["March","मार्च","मार्च"],
+["April","एप्रिल","अप्रैल"],
+["May","मे","मई"],
+["June","जून","जून"],
+["July","जुलाई","जुलाई"],
+["August","ऑगस्ट","अगस्त"],
+["September","सेप्टेम्बर","सितंबर"],
+["October","ऑक्टोबर","अक्टूबर"],
+["November","नोवेम्बर","नवंबर"],
+["December","डिसेम्बर","दिसंबर"],
+["calendar","कैलेंडर","पंचांग / कैलेंडर"],
+["date","डेट","तारीख"],
+["season","सीज़न","ऋतु"]["account","अकाउंट","खाता"],
+["action","ऐक्शन","कार्यवाही"],
+["address","एड्रेस","पता"],
+["airport","एयरपोर्ट","हवाई अड्डा"],
+["amount","अमाउंट","राशि"],
+["article","आर्टिकल","लेख"],
+["background","बैकग्राउंड","पृष्ठभूमि"],
+["balance","बैलेंस","शेष राशि"],
+["bill","बिल","देय राशि"],
+["business","बिज़नेस","व्यवसाय"],
+["button","बटन","बटन"],
+["card","कार्ड","पत्रक / कार्ड"],
+["cashier","कैशियर","नकदी लेने वाला"],
+["center","सेंटर","केंद्र"],
+["channel","चैनल","मार्ग / माध्यम"],
+["code","कोड","कूट"],
+["company","कंपनी","व्यवसायिक संस्था"],
+["contact","कॉन्टैक्ट","संपर्क"],
+["conversation","कन्वर्सेशन","बातचीत"],
+["customer","कस्टमर","ग्राहक"],
+
+["delivery","डिलिवरी","सामान पहुँचाना"],
+["department","डिपार्टमेंट","विभाग"],
+["device","डिवाइस","उपकरण"],
+["direction","डायरेक्शन","दिशा"],
+["discount","डिस्काउंट","छूट"],
+["entrance","एंट्रेंस","प्रवेश द्वार"],
+["error","एरर","त्रुटि"],
+["form","फॉर्म","प्रपत्र"],
+["guide","गाइड","मार्गदर्शक"],
+["information","इन्फॉर्मेशन","जानकारी"],
+["instruction","इंस्ट्रक्शन","निर्देश"],
+["item","आइटम","वस्तु"],
+["label","लेबल","चिह्न-पत्र"],
+["machine","मशीन","यंत्र"],
+["member","मेंबर","सदस्य"],
+["notice","नोटिस","सूचना"],
+["office","ऑफिस","कार्यालय"],
+["option","ऑप्शन","विकल्प"],
+["package","पैकेज","पार्सल"],
+["receipt","रिसीट","रसीद"],
+
+["appointment","अपॉइंटमेंट","मुलाकात का समय"],
+["permission","परमिशन","अनुमति"],
+["police","पुलिस","पुलिस"],
+["post","पोस्ट","डाक"],
+["problem","प्रॉब्लम","समस्या"],
+["product","प्रोडक्ट","उत्पाद"],
+["record","रिकॉर्ड","अभिलेख"],
+["request","रिक्वेस्ट","अनुरोध"],
+["reservation","रेज़र्वेशन","आरक्षण"],
+["resource","रिसोर्स","संसाधन"],
+["route","रूट","मार्ग"],
+["sale","सेल","बिक्री"],
+["section","सेक्शन","खंड"],
+["security","सिक्योरिटी","सुरक्षा"],
+["shopkeeper","शॉपकीपर","दुकानदार"],
+["signal","सिग्नल","संकेत"],
+["stamp","स्टैम्प","डाक-टिकट / मुहर"],
+["store","स्टोर","भंडार / दुकान"],
+["system","सिस्टम","व्यवस्था"],
+["tax","टैक्स","कर"],
+
+["telephone","टेलीफोन","दूरभाष"],
+["transport","ट्रांसपोर्ट","परिवहन"],
+["travel","ट्रैवल","यात्रा"],
+["vehicle","व्हीकल","वाहन"],
+["wallet","वॉलेट","बटुआ"],
+["website","वेबसाइट","जालस्थल"],
+["address","एड्रेस","पता"],
+["battery","बैटरी","विद्युत-संचायक"],
+["browser","ब्राउज़र","वेब देखने का कार्यक्रम"],
+["internet","इंटरनेट","अंतरजाल"],
+["laptop","लैपटॉप","सुवाह्य कंप्यूटर"],
+["password","पासवर्ड","गुप्तशब्द"],
+["printer","प्रिंटर","मुद्रक"],
+["screen","स्क्रीन","प्रदर्श-पटल"],
+["software","सॉफ्टवेयर","संगणक प्रोग्राम"],
+["technology","टेक्नोलॉजी","प्रौद्योगिकी"],
+["keyboard","कीबोर्ड","कुंजीपटल"],
+["mouse","माउस","कंप्यूटर नियंत्रक"],
+["charger","चार्जर","विद्युत-चार्ज उपकरण"],
+["folder","फोल्डर","संग्रह-पात्र"],
+
+["angry","एंग्री","क्रोधित"],
+["afraid","अफ्रेड","डरा हुआ"],
+["brave","ब्रेव","बहादुर"],
+["calm","काम","शांत"],
+["clever","क्लेवर","चतुर"],
+["kind","काइंड","दयालु"],
+["lazy","लेज़ी","आलसी"],
+["polite","पलाइट","विनम्र"],
+["proud","प्राउड","गर्वित"],
+["quiet","क्वाइट","शांत / चुप"],
+["rude","रूड","असभ्य"],
+["serious","सीरियस","गंभीर"],
+["sick","सिक","बीमार"],
+["strange","स्ट्रेंज","अजीब"],
+["successful","सक्सेसफुल","सफल"],
+["useful","यूज़फुल","उपयोगी"],
+["useless","यूज़लेस","अनुपयोगी"],
+["weak","वीक","कमज़ोर"],
+["young","यंग","युवा"],
+["wise","वाइज़","बुद्धिमान"]["ability","अबिलिटी","क्षमता"],
+["absence","ऐब्सेंस","अनुपस्थिति"],
+["accident","ऐक्सिडेंट","दुर्घटना"],
+["achievement","अचीवमेंट","उपलब्धि"],
+["advantage","एडवांटेज","फ़ायदा"],
+["adventure","एडवेंचर","साहसिक अनुभव"],
+["agreement","अग्रीमेंट","समझौता"],
+["announcement","अनाउन्समेंट","घोषणा"],
+["argument","आर्ग्युमेंट","बहस"],
+["arrival","अराइवल","आगमन"],
+["behavior","बिहेवियर","व्यवहार"],
+["belief","बिलीफ़","विश्वास"],
+["choice","चॉइस","चयन"],
+["comfort","कम्फर्ट","आराम"],
+["communication","कम्युनिकेशन","संचार"],
+["competition","कॉम्पिटिशन","प्रतियोगिता"],
+["confidence","कॉन्फिडेंस","आत्मविश्वास"],
+["connection","कनेक्शन","संबंध"],
+["conversation","कन्वर्सेशन","बातचीत"],
+["courage","करिज","साहस"],
+
+["custom","कस्टम","रीति-रिवाज़"],
+["danger","डेंजर","खतरा"],
+["difference","डिफरेंस","अंतर"],
+["difficulty","डिफिकल्टी","कठिनाई"],
+["distance","डिस्टेंस","दूरी"],
+["dream","ड्रीम","सपना"],
+["duty","ड्यूटी","कर्तव्य"],
+["effect","इफेक्ट","प्रभाव"],
+["example","एग्ज़ाम्पल","उदाहरण"],
+["excuse","एक्सक्यूज़","बहाना / क्षमा"],
+["failure","फेल्योर","असफलता"],
+["fear","फियर","भय"],
+["freedom","फ्रीडम","स्वतंत्रता"],
+["friendship","फ्रेंडशिप","मित्रता"],
+["gift","गिफ्ट","उपहार"],
+["growth","ग्रोथ","विकास"],
+["happiness","हैपिनेस","खुशी"],
+["hope","होप","आशा"],
+["improvement","इम्प्रूवमेंट","सुधार"],
+["invitation","इनविटेशन","निमंत्रण"],
+
+["journey","जर्नी","यात्रा"],
+["language","लैंग्वेज","भाषा"],
+["memory","मेमोरी","याददाश्त"],
+["mistake","मिस्टेक","गलती"],
+["opportunity","ऑपर्च्युनिटी","अवसर"],
+["patience","पेशन्स","धैर्य"],
+["peace","पीस","शांति"],
+["plan","प्लैन","योजना"],
+["practice","प्रैक्टिस","अभ्यास"],
+["progress","प्रोग्रेस","प्रगति"],
+["promise","प्रॉमिस","वादा"],
+["purpose","पर्पज़","उद्देश्य"],
+["respect","रिस्पेक्ट","सम्मान"],
+["responsibility","रिस्पॉन्सिबिलिटी","ज़िम्मेदारी"],
+["success","सक्सेस","सफलता"],
+["support","सपोर्ट","सहायता"],
+["thought","थॉट","विचार"],
+["truth","ट्रुथ","सच्चाई"],
+["victory","विक्ट्री","जीत"],
+["worry","वरी","चिंता"],
+
+["beautiful","ब्यूटिफुल","सुंदर"],
+["boring","बोरिंग","उबाऊ"],
+["bright","ब्राइट","चमकीला"],
+["broken","ब्रोकन","टूटा हुआ"],
+["cheap","चीप","सस्ता"],
+["comfortable","कम्फर्टेबल","आरामदायक"],
+["dangerous","डेंजरस","खतरनाक"],
+["expensive","एक्सपेंसिव","महँगा"],
+["familiar","फमिलियर","परिचित"],
+["famous","फेमस","प्रसिद्ध"],
+["fresh","फ्रेश","ताज़ा"],
+["friendly","फ्रेंडली","मिलनसार"],
+["honest","ऑनेस्ट","ईमानदार"],
+["lucky","लकी","भाग्यशाली"],
+["modern","मॉडर्न","आधुनिक"],
+["natural","नैचरल","प्राकृतिक"],
+["normal","नॉर्मल","सामान्य"],
+["popular","पॉपुलर","लोकप्रिय"],
+["private","प्राइवेट","निजी"],
+["public","पब्लिक","सार्वजनिक"],
+
+["agree","अग्री","सहमत होना"],
+["arrive","अराइव","पहुँचना"],
+["believe","बिलीव","विश्वास करना"],
+["borrow","बॉरो","उधार लेना"],
+["celebrate","सेलिब्रेट","जश्न मनाना"],
+["compare","कम्पेयर","तुलना करना"],
+["complain","कम्प्लेन","शिकायत करना"],
+["continue","कंटिन्यू","जारी रखना"],
+["depend","डिपेंड","निर्भर होना"],
+["describe","डिस्क्राइब","वर्णन करना"],
+["discover","डिस्कवर","खोज करना"],
+["divide","डिवाइड","विभाजित करना"],
+["earn","अर्न","कमाना"],
+["enjoy","एन्जॉय","आनंद लेना"],
+["explain","एक्सप्लेन","समझाना"],
+["improve","इम्प्रूव","सुधारना"],
+["introduce","इंट्रोड्यूस","परिचय कराना"],
+["prepare","प्रिपेयर","तैयार करना"],
+["protect","प्रोटेक्ट","सुरक्षा करना"],
+["recommend","रेकमेंड","सिफारिश करना"]["actor","ऐक्टर","अभिनेता"],
+["airport","एयरपोर्ट","हवाई अड्डा"],
+["bakery","बेकरी","रोटी-पेस्ट्री की दुकान"],
+["basket","बास्केट","टोकरी"],
+["bedroom","बेडरूम","शयनकक्ष"],
+["bicycle","बाइसिकल","साइकिल"],
+["blanket","ब्लैंकेट","कंबल"],
+["calendar","कैलेंडर","तारीखों की तालिका"],
+["carpet","कार्पेट","कालीन"],
+["ceiling","सीलिंग","छत की अंदरूनी सतह"],
+["clock","क्लॉक","घड़ी"],
+["counter","काउंटर","सामान रखने की मेज़"],
+["curtain","कर्टन","परदा"],
+["drawer","ड्रॉअर","दराज़"],
+["dust","डस्ट","धूल"],
+["electricity","इलेक्ट्रिसिटी","बिजली"],
+["engine","इंजन","इंजन"],
+["furniture","फर्नीचर","फर्नीचर"],
+["garage","गैरेज","वाहन रखने की जगह"],
+["keychain","कीचेन","चाबियों का गुच्छा"],
+
+["kitchenware","किचनवेयर","रसोई के बर्तन"],
+["lamp","लैम्प","दीपक"],
+["mirror","मिरर","आईना"],
+["pillow","पिलो","तकिया"],
+["pocket","पॉकेट","जेब"],
+["shelf","शेल्फ","तख्ता / अलमारी की पट्टी"],
+["shower","शावर","फुहार से स्नान"],
+["sink","सिंक","धोने का पात्र"],
+["sofa","सोफा","बैठने का गद्देदार फर्नीचर"],
+["stair","स्टेयर","सीढ़ी"],
+["toilet","टॉयलेट","शौचालय"],
+["umbrella","अम्ब्रेला","छाता"],
+["vacuum","वैक्यूम","धूल साफ़ करने का यंत्र"],
+["washing","वॉशिंग","धुलाई"],
+["washing-machine","वॉशिंग मशीन","कपड़े धोने की मशीन"],
+["wood","वुड","लकड़ी"],
+["metal","मेटल","धातु"],
+["plastic","प्लास्टिक","प्लास्टिक"],
+["cotton","कॉटन","कपास"],
+["material","मटीरियल","सामग्री"],
+
+["accountant","अकाउंटेंट","लेखाकार"],
+["boss","बॉस","अधिकारी / मालिक"],
+["client","क्लाइंट","ग्राहक"],
+["director","डायरेक्टर","निदेशक"],
+["engineer","इंजीनियर","अभियंता"],
+["managerial","मैनेजरियल","प्रबंधकीय"],
+["profession","प्रोफेशन","पेशा"],
+["professionally","प्रोफेशनली","व्यावसायिक रूप से"],
+["worker","वर्कर","कामगार"],
+["workload","वर्कलोड","काम का बोझ"],
+["branch","ब्रांच","शाखा"],
+["factory","फैक्टरी","कारखाना"],
+["company-policy","कंपनी पॉलिसी","कंपनी की नीति"],
+["contract","कॉन्ट्रैक्ट","अनुबंध"],
+["documentary","डॉक्यूमेंटरी","वृत्तचित्र संबंधी"],
+["signature","सिग्नेचर","हस्ताक्षर"],
+["stationery","स्टेशनरी","लेखन-सामग्री"],
+["uniform","यूनिफॉर्म","वर्दी"],
+["vacancy","वेकेंसी","रिक्त पद"],
+["workshop","वर्कशॉप","कार्यशाला"],
+
+["admission","एडमिशन","प्रवेश"],
+["attendance","अटेंडेंस","उपस्थिति"],
+["campus","कैंपस","परिसर"],
+["classmate","क्लासमेट","सहपाठी"],
+["college-life","कॉलेज लाइफ","महाविद्यालयीन जीवन"],
+["competition","कॉम्पिटिशन","प्रतियोगिता"],
+["departmental","डिपार्टमेंटल","विभागीय"],
+["dictionary","डिक्शनरी","शब्दकोश"],
+["entrance-exam","एंट्रेंस एग्ज़ाम","प्रवेश परीक्षा"],
+["homework","होमवर्क","गृहकार्य"],
+["laboratory","लैबोरेटरी","प्रयोगशाला"],
+["principal","प्रिंसिपल","प्रधानाचार्य"],
+["scholarship","स्कॉलरशिप","छात्रवृत्ति"],
+["semester","सेमेस्टर","सत्र"],
+["textbook","टेक्स्टबुक","पाठ्यपुस्तक"],
+["university","यूनिवर्सिटी","विश्वविद्यालय"],
+["workbook","वर्कबुक","अभ्यास-पुस्तिका"],
+["academic","ऐकेडमिक","शैक्षणिक"],
+["graduate","ग्रैजुएट","स्नातक"],
+["degree-holder","डिग्री होल्डर","उपाधि प्राप्त व्यक्ति"],
+
+["baggage","बैगेज","सामान"],
+["boarding","बोर्डिंग","वाहन/विमान में चढ़ना"],
+["destination","डेस्टिनेशन","गंतव्य"],
+["driver","ड्राइवर","चालक"],
+["fare","फेयर","किराया"],
+["highway","हाईवे","राजमार्ग"],
+["passenger","पैसेंजर","यात्री"],
+["platform","प्लैटफॉर्म","मंच / रेलवे चबूतरा"],
+["railway","रेलवे","रेल व्यवस्था"],
+["traffic","ट्रैफिक","यातायात"],
+["traffic-light","ट्रैफिक लाइट","यातायात संकेत बत्ती"],
+["trip","ट्रिप","सफ़र"],
+["journey-time","जर्नी टाइम","यात्रा का समय"],
+["luggage","लगेज","यात्रा का सामान"],
+["map","मैप","नक्शा"],
+["passport","पासपोर्ट","पारपत्र"],
+["visa","वीज़ा","प्रवेश अनुमति"],
+["border","बॉर्डर","सीमा"],
+["country","कंट्री","देश"],
+["capital","कैपिटल","राजधानी"]["accept","एक्सेप्ट","स्वीकार करना"],
+["add","ऐड","जोड़ना"],
+["admit","एडमिट","स्वीकार करना"],
+["advise","एडवाइज़","सलाह देना"],
+["afford","अफोर्ड","खर्च वहन कर पाना"],
+["allow","अलाउ","अनुमति देना"],
+["appear","अपियर","दिखाई देना"],
+["avoid","अवॉइड","बचना"],
+["belong","बिलॉन्ग","संबंधित होना"],
+["cancel","कैंसल","रद्द करना"],
+["carry","कैरी","ले जाना"],
+["catch","कैच","पकड़ना"],
+["check","चेक","जाँच करना"],
+["choose","चूज़","चुनना"],
+["collect","कलेक्ट","इकट्ठा करना"],
+["complete","कम्प्लीट","पूरा करना"],
+["confirm","कन्फर्म","पुष्टि करना"],
+["consider","कन्सिडर","विचार करना"],
+["control","कंट्रोल","नियंत्रित करना"],
+["cook","कुक","खाना पकाना"],
+
+["copy","कॉपी","नकल करना"],
+["correct","करेक्ट","सही करना"],
+["count","काउंट","गिनना"],
+["cover","कवर","ढकना"],
+["create","क्रिएट","बनाना"],
+["cross","क्रॉस","पार करना"],
+["decide","डिसाइड","निर्णय लेना"],
+["delete","डिलीट","हटाना"],
+["develop","डेवलप","विकसित करना"],
+["discuss","डिस्कस","चर्चा करना"],
+["download","डाउनलोड","डाउनलोड करना"],
+["drive","ड्राइव","गाड़ी चलाना"],
+["enter","एंटर","प्रवेश करना"],
+["escape","एस्केप","बच निकलना"],
+["expect","एक्सपेक्ट","उम्मीद करना"],
+["fill","फिल","भरना"],
+["follow","फॉलो","पीछा करना / अनुसरण करना"],
+["happen","हैपन","होना"],
+["hide","हाइड","छिपाना"],
+["hold","होल्ड","पकड़कर रखना"],
+
+["invite","इनवाइट","बुलाना"],
+["join","जॉइन","शामिल होना"],
+["keep","कीप","रखना"],
+["leave","लीव","छोड़ना"],
+["lend","लेंड","उधार देना"],
+["lift","लिफ्ट","उठाना"],
+["lock","लॉक","ताला लगाना"],
+["manage","मैनेज","प्रबंध करना"],
+["mention","मेंशन","उल्लेख करना"],
+["move","मूव","हिलना / स्थान बदलना"],
+["notice","नोटिस","ध्यान देना"],
+["offer","ऑफर","प्रस्ताव देना"],
+["order","ऑर्डर","आदेश देना"],
+["organize","ऑर्गनाइज़","व्यवस्थित करना"],
+["pass","पास","गुज़रना / पास होना"],
+["pick","पिक","चुनना / उठाना"],
+["place","प्लेस","रखना"],
+["prefer","प्रिफर","अधिक पसंद करना"],
+["print","प्रिंट","छापना"],
+["receive","रिसीव","प्राप्त करना"],
+
+["refuse","रिफ्यूज़","मना करना"],
+["remove","रिमूव","हटाना"],
+["repair","रिपेयर","मरम्मत करना"],
+["replace","रिप्लेस","बदल देना"],
+["reply","रिप्लाइ","जवाब देना"],
+["return","रिटर्न","वापस करना"],
+["save","सेव","बचाना / सुरक्षित रखना"],
+["search","सर्च","खोजना"],
+["send","सेंड","भेजना"],
+["share","शेयर","साझा करना"],
+["show","शो","दिखाना"],
+["solve","सॉल्व","हल करना"],
+["spend","स्पेंड","खर्च करना"],
+["stay","स्टे","ठहरना"],
+["steal","स्टील","चोरी करना"],
+["study","स्टडी","पढ़ाई करना"],
+["teach","टीच","पढ़ाना"],
+["thank","थैंक","धन्यवाद देना"],
+["touch","टच","छूना"],
+["turn","टर्न","मुड़ना / घुमाना"],
+
+["usual","यूज़ुअल","सामान्य / आम"],
+["available","अवेलेबल","उपलब्ध"],
+["careful","केयरफुल","सावधान"],
+["certain","सर्टन","निश्चित"],
+["clear","क्लियर","स्पष्ट"],
+["close","क्लोज़","पास / निकट"],
+["correct","करेक्ट","सही"],
+["different","डिफरेंट","अलग"],
+["dirty","डर्टी","गंदा"],
+["empty","एम्प्टी","खाली"],
+["full","फुल","भरा हुआ"],
+["healthy","हेल्दी","स्वस्थ"],
+["helpful","हेल्पफुल","सहायक"],
+["necessary","नेसेसरी","ज़रूरी"],
+["possible","पॉसिबल","संभव"],
+["safe","सेफ","सुरक्षित"],
+["simple","सिम्पल","सरल"],
+["special","स्पेशल","विशेष"],
+["useful","यूज़फुल","उपयोगी"],
+["wrong","रॉन्ग","गलत"]["achieve","अचीव","प्राप्त करना"],
+["act","ऐक्ट","कार्य करना"],
+["adapt","अडैप्ट","अनुकूल बनाना"],
+["adjust","अडजस्ट","समायोजित करना"],
+["announce","अनाउन्स","घोषणा करना"],
+["answer","आंसर","उत्तर देना"],
+["apply","अप्लाइ","आवेदन करना / लागू करना"],
+["arrange","अरेंज","व्यवस्थित करना"],
+["attend","अटेंड","उपस्थित होना"],
+["attract","अट्रैक्ट","आकर्षित करना"],
+["build","बिल्ड","बनाना"],
+["change","चेंज","बदलना"],
+["check-in","चेक-इन","पंजीकरण करना"],
+["clean","क्लीन","साफ़ करना"],
+["climb","क्लाइम","चढ़ना"],
+["close","क्लोज़","बंद करना"],
+["communicate","कम्युनिकेट","बातचीत करना"],
+["connect","कनेक्ट","जोड़ना"],
+["contact","कॉन्टैक्ट","संपर्क करना"],
+["continue","कंटिन्यू","जारी रखना"],
+
+["deliver","डिलिवर","पहुँचाना"],
+["depend","डिपेंड","निर्भर होना"],
+["design","डिज़ाइन","रूपरेखा बनाना"],
+["destroy","डिस्ट्रॉय","नष्ट करना"],
+["develop","डेवलप","विकसित करना"],
+["discover","डिस्कवर","खोज निकालना"],
+["download","डाउनलोड","डाउनलोड करना"],
+["dress","ड्रेस","कपड़े पहनना"],
+["drop","ड्रॉप","गिराना"],
+["educate","एजुकेट","शिक्षित करना"],
+["encourage","एन्करेज","प्रोत्साहित करना"],
+["enough","इनफ","पर्याप्त"],
+["exchange","एक्सचेंज","बदलना / विनिमय करना"],
+["exercise","एक्सरसाइज़","व्यायाम करना"],
+["exist","एग्ज़िस्ट","मौजूद होना"],
+["experience","एक्सपीरियंस","अनुभव करना"],
+["fix","फिक्स","ठीक करना"],
+["fold","फोल्ड","मोड़ना"],
+["gather","गैदर","इकट्ठा करना"],
+["guess","गेस","अनुमान लगाना"],
+
+["handle","हैंडल","संभालना"],
+["hurry","हरी","जल्दी करना"],
+["identify","आइडेंटिफाइ","पहचानना"],
+["imagine","इमैजिन","कल्पना करना"],
+["include","इन्क्लूड","शामिल करना"],
+["increase","इन्क्रीज़","बढ़ाना"],
+["introduce","इंट्रोड्यूस","परिचय कराना"],
+["knock","नॉक","खटखटाना"],
+["lead","लीड","नेतृत्व करना"],
+["lock","लॉक","बंद करना"],
+["measure","मेज़र","मापना"],
+["miss","मिस","चूकना"],
+["offer","ऑफर","प्रस्ताव देना"],
+["pack","पैक","सामान बाँधना"],
+["participate","पार्टिसिपेट","भाग लेना"],
+["prepare","प्रिपेयर","तैयार करना"],
+["prevent","प्रिवेंट","रोकना"],
+["produce","प्रोड्यूस","उत्पादन करना"],
+["provide","प्रोवाइड","उपलब्ध कराना"],
+["realize","रियलाइज़","एहसास होना"],
+
+["reduce","रिड्यूस","कम करना"],
+["relax","रिलैक्स","आराम करना"],
+["remain","रिमेन","बना रहना"],
+["repeat","रिपीट","दोहराना"],
+["report","रिपोर्ट","रिपोर्ट करना"],
+["require","रिक्वायर","आवश्यक होना"],
+["rest","रेस्ट","आराम करना"],
+["risk","रिस्क","जोखिम उठाना"],
+["rush","रश","जल्दबाज़ी करना"],
+["select","सिलेक्ट","चुनना"],
+["separate","सेपरेट","अलग करना"],
+["serve","सर्व","सेवा करना"],
+["smile","स्माइल","मुस्कुराना"],
+["sort","सॉर्ट","क्रम में लगाना"],
+["store","स्टोर","संग्रह करना"],
+["suggest","सजेस्ट","सुझाव देना"],
+["switch","स्विच","बदलना"],
+["taste","टेस्ट","स्वाद लेना"],
+["train","ट्रेन","प्रशिक्षण देना"],
+["trust","ट्रस्ट","भरोसा करना"],
+
+["active","ऐक्टिव","सक्रिय"],
+["basic","बेसिक","मूलभूत"],
+["common","कॉमन","सामान्य"],
+["confident","कॉन्फिडेंट","आत्मविश्वासी"],
+["correctly","करेक्टली","सही ढंग से"],
+["daily","डेली","प्रतिदिन का"],
+["direct","डायरेक्ट","सीधा"],
+["effective","इफेक्टिव","प्रभावी"],
+["exact","एग्ज़ैक्ट","सटीक"],
+["extra","एक्स्ट्रा","अतिरिक्त"],
+["final","फाइनल","अंतिम"],
+["general","जेनरल","सामान्य"],
+["local","लोकल","स्थानीय"],
+["necessary","नेसेसरी","आवश्यक"],
+["personal","पर्सनल","व्यक्तिगत"],
+["recent","रीसेंट","हाल का"],
+["regular","रेग्युलर","नियमित"],
+["similar","सिमिलर","समान"],
+["strong","स्ट्रॉन्ग","मज़बूत"],
+["various","वेरीअस","विभिन्न"]["abroad","अब्रॉड","विदेश में"],
+["accidentally","ऐक्सिडेंटली","गलती से"],
+["actually","ऐक्चुअली","वास्तव में"],
+["almost","ऑल्मोस्ट","लगभग"],
+["already","ऑलरेडी","पहले ही"],
+["anywhere","एनीवेयर","कहीं भी"],
+["carefully","केयरफुली","सावधानी से"],
+["certainly","सर्टनली","निश्चित रूप से"],
+["completely","कम्प्लीटली","पूरी तरह"],
+["currently","करेंटली","वर्तमान में"],
+["especially","एस्पेशली","विशेष रूप से"],
+["finally","फाइनली","आखिरकार"],
+["fortunately","फॉर्चुनेटली","सौभाग्य से"],
+["usually","यूज़ुअली","आमतौर पर"],
+["immediately","इमीडिएटली","तुरंत"],
+["instead","इन्स्टेड","इसके बजाय"],
+["later","लेटर","बाद में"],
+["maybe","मेबी","शायद"],
+["mostly","मोस्टली","अधिकतर"],
+["probably","प्रॉबबली","संभवतः"],
+
+["quickly","क्विकली","जल्दी से"],
+["really","रियली","वास्तव में"],
+["recently","रीसेंटली","हाल ही में"],
+["simply","सिम्पली","सरल रूप से"],
+["sometimes","समटाइम्स","कभी-कभी"],
+["together","टुगेदर","साथ में"],
+["tomorrow","टुमॉरो","कल"],
+["tonight","टनाइट","आज रात"],
+["usually","यूज़ुअली","आमतौर पर"],
+["yet","येट","अभी तक"],
+["again","अगेन","फिर से"],
+["away","अवे","दूर"],
+["backward","बैकवर्ड","पीछे की ओर"],
+["forward","फॉरवर्ड","आगे की ओर"],
+["inside","इनसाइड","अंदर"],
+["outside","आउटसाइड","बाहर"],
+["nearby","नियरबाय","पास में"],
+["upstairs","अपस्टेयर्स","ऊपर की मंज़िल पर"],
+["downstairs","डाउनस्टेयर्स","नीचे की मंज़िल पर"],
+["everywhere","एवरीवेयर","हर जगह"],
+
+["above","अबव","ऊपर"],
+["below","बिलो","नीचे"],
+["beside","बिसाइड","बगल में"],
+["between","बिटवीन","के बीच"],
+["behind","बिहाइंड","पीछे"],
+["beyond","बियॉन्ड","से आगे"],
+["during","ड्यूरिंग","के दौरान"],
+["except","एक्सेप्ट","को छोड़कर"],
+["against","अगेन्स्ट","के विरुद्ध"],
+["among","अमंग","के बीच"],
+["around","अराउंड","चारों ओर"],
+["before","बिफोर","पहले"],
+["after","आफ्टर","बाद"],
+["through","थ्रू","के माध्यम से"],
+["toward","टुवर्ड","की ओर"],
+["without","विदाउट","बिना"],
+["within","विदिन","के अंदर"],
+["under","अंडर","के नीचे"],
+["upon","अपॉन","पर / के ऊपर"],
+["along","अलॉन्ग","के साथ-साथ"],
+
+["another","अनदर","एक और"],
+["anyone","एनीवन","कोई भी व्यक्ति"],
+["anything","एनिथिंग","कुछ भी"],
+["everyone","एवरीवन","हर व्यक्ति"],
+["everything","एवरीथिंग","हर चीज़"],
+["nobody","नोबडी","कोई नहीं"],
+["nothing","नथिंग","कुछ नहीं"],
+["someone","समवन","कोई व्यक्ति"],
+["something","समथिंग","कुछ"],
+["somewhere","समवेयर","कहीं"],
+["each","ईच","प्रत्येक"],
+["either","ईदर","दो में से कोई एक"],
+["neither","नाइदर","दोनों में से कोई नहीं"],
+["both","बोथ","दोनों"],
+["few","फ्यू","कुछ"],
+["many","मेनी","बहुत से"],
+["several","सेवरल","कई"],
+["enough","इनफ","पर्याप्त"],
+["whole","होल","पूरा"],
+["half","हाफ","आधा"],
+
+["amount","अमाउंट","मात्रा"],
+["average","ऐवरेज","औसत"],
+["cost","कॉस्ट","लागत"],
+["number","नम्बर","संख्या"],
+["percent","परसेंट","प्रतिशत"],
+["total","टोटल","कुल"],
+["value","वैल्यू","मूल्य"],
+["weight","वेट","वज़न"],
+["height","हाइट","ऊँचाई"],
+["length","लेंथ","लंबाई"],
+["width","विड्थ","चौड़ाई"],
+["size","साइज़","आकार"],
+["speed","स्पीड","गति"],
+["level","लेवल","स्तर"],
+["limit","लिमिट","सीमा"],
+["maximum","मैक्सिमम","अधिकतम"],
+["minimum","मिनिमम","न्यूनतम"],
+["pair","पेयर","जोड़ी"],
+["piece","पीस","टुकड़ा"],
+["part","पार्ट","हिस्सा"]["address","अड्रेस","पता"],
+["age","एज","उम्र"],
+["area","एरिया","क्षेत्र"],
+["building","बिल्डिंग","इमारत"],
+["corner","कॉर्नर","कोना"],
+["floor","फ्लोर","मंज़िल"],
+["garden","गार्डन","बगीचा"],
+["gate","गेट","फाटक"],
+["ground","ग्राउंड","ज़मीन"],
+["kitchen","किचन","रसोईघर"],
+["library","लाइब्रेरी","पुस्तकालय"],
+["location","लोकेशन","स्थान"],
+["neighborhood","नेबरहुड","आस-पड़ोस"],
+["path","पाथ","रास्ता"],
+["road","रोड","सड़क"],
+["street","स्ट्रीट","गली / सड़क"],
+["toilet","टॉयलेट","शौचालय"],
+["wall","वॉल","दीवार"],
+["yard","यार्ड","आँगन"],
+["village","विलेज","गाँव"],
+
+["brother","ब्रदर","भाई"],
+["sister","सिस्टर","बहन"],
+["father","फादर","पिता"],
+["mother","मदर","माँ"],
+["parent","पेरेंट","माता-पिता"],
+["son","सन","बेटा"],
+["daughter","डॉटर","बेटी"],
+["husband","हज़्बैंड","पति"],
+["wife","वाइफ़","पत्नी"],
+["child","चाइल्ड","बच्चा"],
+["baby","बेबी","शिशु"],
+["friend","फ्रेंड","दोस्त"],
+["neighbor","नेबर","पड़ोसी"],
+["guest","गेस्ट","मेहमान"],
+["person","पर्सन","व्यक्ति"],
+["people","पीपल","लोग"],
+["customer","कस्टमर","ग्राहक"],
+["owner","ओनर","मालिक"],
+["worker","वर्कर","कामगार"],
+["leader","लीडर","नेता / प्रमुख"],
+
+["breakfast","ब्रेकफास्ट","नाश्ता"],
+["lunch","लंच","दोपहर का भोजन"],
+["dinner","डिनर","रात का खाना"],
+["bread","ब्रेड","डबलरोटी"],
+["rice","राइस","चावल"],
+["salt","सॉल्ट","नमक"],
+["sugar","शुगर","चीनी"],
+["milk","मिल्क","दूध"],
+["tea","टी","चाय"],
+["coffee","कॉफी","कॉफ़ी"],
+["juice","जूस","रस"],
+["watermelon","वॉटरमेलन","तरबूज"],
+["banana","बनाना","केला"],
+["apple","ऐपल","सेब"],
+["orange","ऑरेंज","संतरा"],
+["potato","पोटेटो","आलू"],
+["tomato","टोमेटो","टमाटर"],
+["onion","अनियन","प्याज़"],
+["egg","एग","अंडा"],
+["meat","मीट","मांस"],
+
+["shirt","शर्ट","कमीज़"],
+["trousers","ट्राउज़र्स","पतलून"],
+["jacket","जैकेट","जैकेट"],
+["dress","ड्रेस","पोशाक"],
+["hat","हैट","टोपी"],
+["sock","सॉक","मोज़ा"],
+["belt","बेल्ट","कमरबंद"],
+["pocket","पॉकेट","जेब"],
+["button","बटन","बटन"],
+["size","साइज़","आकार"],
+["color","कलर","रंग"],
+["black","ब्लैक","काला"],
+["white","व्हाइट","सफ़ेद"],
+["red","रेड","लाल"],
+["blue","ब्लू","नीला"],
+["green","ग्रीन","हरा"],
+["yellow","येलो","पीला"],
+["brown","ब्राउन","भूरा"],
+["clean","क्लीन","साफ़"],
+["wear","वेयर","पहनना"],
+
+["airport","एयरपोर्ट","हवाई अड्डा"],
+["station","स्टेशन","स्टेशन"],
+["hotel","होटल","होटल"],
+["room","रूम","कमरा"],
+["reservation","रेज़र्वेशन","आरक्षण"],
+["passport","पासपोर्ट","पासपोर्ट"],
+["luggage","लगेज","सामान"],
+["journey","जर्नी","यात्रा"],
+["trip","ट्रिप","सफ़र"],
+["country","कंट्री","देश"],
+["city","सिटी","शहर"],
+["village","विलेज","गाँव"],
+["map","मैप","नक्शा"],
+["direction","डायरेक्शन","दिशा"],
+["left","लेफ्ट","बायाँ"],
+["right","राइट","दायाँ"],
+["straight","स्ट्रेट","सीधा"],
+["north","नॉर्थ","उत्तर"],
+["south","साउथ","दक्षिण"],
+["east","ईस्ट","पूर्व"] ["account","अकाउंट","खाता"],
+["action","ऐक्शन","कार्य / कार्रवाई"],
+["activity","ऐक्टिविटी","गतिविधि"],
+["advice","एडवाइस","सलाह"],
+["appointment","अपॉइंटमेंट","मुलाक़ात का तय समय"],
+["attention","अटेंशन","ध्यान"],
+["behavior","बिहेवियर","व्यवहार"],
+["choice","चॉइस","चुनाव"],
+["chance","चांस","मौका"],
+["condition","कंडीशन","स्थिति / शर्त"],
+["decision","डिसिज़न","निर्णय"],
+["detail","डीटेल","विवरण"],
+["difference","डिफरेंस","अंतर"],
+["example","एग्ज़ाम्पल","उदाहरण"],
+["experience","एक्सपीरियंस","अनुभव"],
+["fact","फैक्ट","तथ्य"],
+["idea","आइडिया","विचार"],
+["information","इन्फॉर्मेशन","जानकारी"],
+["interest","इंटरेस्ट","रुचि"],
+["reason","रीज़न","कारण"],
+
+["problem","प्रॉब्लम","समस्या"],
+["purpose","पर्पस","उद्देश्य"],
+["result","रिज़ल्ट","परिणाम"],
+["reason","रीज़न","कारण"],
+["rule","रूल","नियम"],
+["situation","सिचुएशन","परिस्थिति"],
+["solution","सॉल्यूशन","समाधान"],
+["success","सक्सेस","सफलता"],
+["failure","फेल्योर","असफलता"],
+["mistake","मिस्टेक","गलती"],
+["chance","चांस","अवसर"],
+["plan","प्लैन","योजना"],
+["project","प्रोजेक्ट","परियोजना"],
+["task","टास्क","कार्य"],
+["goal","गोल","लक्ष्य"],
+["target","टार्गेट","लक्ष्य"],
+["step","स्टेप","कदम"],
+["way","वे","तरीका / रास्ता"],
+["method","मेथड","तरीका"],
+["choice","चॉइस","विकल्प"],
+
+["arrive","अराइव","पहुँचना"],
+["borrow","बॉरो","उधार लेना"],
+["breathe","ब्रीद","साँस लेना"],
+["bring","ब्रिंग","लाना"],
+["break","ब्रेक","तोड़ना"],
+["bring","ब्रिंग","लाना"],
+["burn","बर्न","जलना / जलाना"],
+["build","बिल्ड","बनाना"],
+["call","कॉल","फ़ोन करना / बुलाना"],
+["carry","कैरी","ले जाना / उठाना"],
+["climb","क्लाइम","चढ़ना"],
+["close","क्लोज़","बंद करना"],
+["collect","कलेक्ट","इकट्ठा करना"],
+["compare","कम्पेयर","तुलना करना"],
+["continue","कंटिन्यू","जारी रखना"],
+["control","कंट्रोल","नियंत्रण करना"],
+["cook","कुक","खाना पकाना"],
+["count","काउंट","गिनना"],
+["cut","कट","काटना"],
+["dance","डांस","नाचना"],
+
+["decide","डिसाइड","निर्णय लेना"],
+["deliver","डिलिवर","पहुँचाना"],
+["describe","डिस्क्राइब","वर्णन करना"],
+["draw","ड्रॉ","चित्र बनाना"],
+["drop","ड्रॉप","गिराना"],
+["drive","ड्राइव","गाड़ी चलाना"],
+["enjoy","एन्जॉय","आनंद लेना"],
+["explain","एक्सप्लेन","समझाना"],
+["feed","फीड","खिलाना"],
+["fill","फिल","भरना"],
+["fix","फिक्स","ठीक करना"],
+["follow","फॉलो","पीछा करना / पालन करना"],
+["guess","गेस","अनुमान लगाना"],
+["happen","हैपन","होना"],
+["improve","इम्प्रूव","सुधारना"],
+["include","इन्क्लूड","शामिल करना"],
+["introduce","इंट्रोड्यूस","परिचय कराना"],
+["invite","इनवाइट","आमंत्रित करना"],
+["knock","नॉक","खटखटाना"],
+["laugh","लाफ","हँसना"],
+
+["lend","लेंड","उधार देना"],
+["lift","लिफ्ट","उठाना"],
+["lock","लॉक","ताला लगाना"],
+["marry","मैरी","विवाह करना"],
+["mean","मीन","अर्थ होना"],
+["mention","मेंशन","उल्लेख करना"],
+["notice","नोटिस","ध्यान देना"],
+["occur","अकर","घटित होना"],
+["pack","पैक","सामान बाँधना"],
+["practice","प्रैक्टिस","अभ्यास करना"],
+["protect","प्रोटेक्ट","सुरक्षा करना"],
+["reach","रीच","पहुँचना"],
+["repair","रिपेयर","मरम्मत करना"],
+["rest","रेस्ट","आराम करना"],
+["return","रिटर्न","वापस आना"],
+["share","शेयर","बाँटना"],
+["smile","स्माइल","मुस्कुराना"],
+["spend","स्पेंड","खर्च करना"],
+["teach","टीच","सिखाना"],
+["travel","ट्रैवल","यात्रा करना"]["ability","अबिलिटी","क्षमता"],
+["absence","ऐब्सेन्स","अनुपस्थिति"],
+["access","ऐक्सेस","पहुँच"],
+["achievement","अचीवमेंट","उपलब्धि"],
+["advantage","एडवांटेज","लाभ"],
+["application","ऐप्लिकेशन","आवेदन"],
+["appointment","अपॉइंटमेंट","तय मुलाक़ात"],
+["arrangement","अरेंजमेंट","व्यवस्था"],
+["background","बैकग्राउंड","पृष्ठभूमि"],
+["benefit","बेनिफिट","फ़ायदा"],
+["challenge","चैलेंज","चुनौती"],
+["communication","कम्युनिकेशन","संचार"],
+["community","कम्युनिटी","समुदाय"],
+["conversation","कन्वर्सेशन","बातचीत"],
+["culture","कल्चर","संस्कृति"],
+["customer","कस्टमर","ग्राहक"],
+["department","डिपार्टमेंट","विभाग"],
+["education","एजुकेशन","शिक्षा"],
+["environment","एनवायरनमेंट","पर्यावरण"],
+["event","इवेंट","कार्यक्रम"],
+
+["future","फ्यूचर","भविष्य"],
+["habit","हैबिट","आदत"],
+["health","हेल्थ","स्वास्थ्य"],
+["knowledge","नॉलेज","ज्ञान"],
+["language","लैंग्वेज","भाषा"],
+["member","मेंबर","सदस्य"],
+["message","मैसेज","संदेश"],
+["opportunity","ऑपरच्यूनिटी","अवसर"],
+["organization","ऑर्गनाइज़ेशन","संगठन"],
+["permission","परमिशन","अनुमति"],
+["population","पॉप्युलेशन","जनसंख्या"],
+["position","पोज़िशन","पद / स्थिति"],
+["preparation","प्रेपरेशन","तैयारी"],
+["relationship","रिलेशनशिप","संबंध"],
+["responsibility","रिस्पॉन्सिबिलिटी","ज़िम्मेदारी"],
+["service","सर्विस","सेवा"],
+["skill","स्किल","कौशल"],
+["society","सोसाइटी","समाज"],
+["support","सपोर्ट","सहायता"],
+["training","ट्रेनिंग","प्रशिक्षण"],
+
+["accept","ऐक्सेप्ट","स्वीकार करना"],
+["achieve","अचीव","प्राप्त करना"],
+["add","ऐड","जोड़ना"],
+["admit","ऐडमिट","स्वीकार करना"],
+["afford","अफोर्ड","खर्च उठा पाना"],
+["agree","अग्री","सहमत होना"],
+["allow","अलाउ","अनुमति देना"],
+["appear","अपियर","दिखाई देना"],
+["apply","अप्लाई","आवेदन करना"],
+["argue","आर्ग्यू","बहस करना"],
+["avoid","अवॉइड","बचना"],
+["believe","बिलीव","विश्वास करना"],
+["belong","बिलॉन्ग","संबंधित होना"],
+["cancel","कैंसल","रद्द करना"],
+["celebrate","सेलिब्रेट","जश्न मनाना"],
+["check","चेक","जाँच करना"],
+["choose","चूज़","चुनना"],
+["clean","क्लीन","साफ़ करना"],
+["complain","कम्प्लेन","शिकायत करना"],
+["confirm","कन्फर्म","पुष्टि करना"],
+
+["connect","कनेक्ट","जोड़ना"],
+["contact","कॉन्टैक्ट","संपर्क करना"],
+["correct","करेक्ट","सुधारना"],
+["create","क्रिएट","बनाना"],
+["cross","क्रॉस","पार करना"],
+["damage","डैमेज","नुकसान पहुँचाना"],
+["depend","डिपेंड","निर्भर होना"],
+["discover","डिस्कवर","खोज करना"],
+["discuss","डिस्कस","चर्चा करना"],
+["download","डाउनलोड","डाउनलोड करना"],
+["educate","एजुकेट","शिक्षित करना"],
+["encourage","एन्करेज","प्रोत्साहित करना"],
+["enter","एंटर","प्रवेश करना"],
+["escape","एस्केप","बच निकलना"],
+["exchange","एक्सचेंज","आदान-प्रदान करना"],
+["exist","एग्ज़िस्ट","मौजूद होना"],
+["expect","एक्सपेक्ट","उम्मीद करना"],
+["finish","फिनिश","समाप्त करना"],
+["handle","हैंडल","संभालना"],
+["identify","आइडेंटिफ़ाइ","पहचानना"],
+
+["imagine","इमैजिन","कल्पना करना"],
+["increase","इन्क्रीज़","बढ़ाना"],
+["introduce","इंट्रोड्यूस","परिचय कराना"],
+["join","जॉइन","शामिल होना"],
+["keep","कीप","रखना"],
+["lead","लीड","नेतृत्व करना"],
+["manage","मैनेज","प्रबंध करना"],
+["measure","मेज़र","मापना"],
+["miss","मिस","चूकना / याद करना"],
+["move","मूव","हिलना / स्थान बदलना"],
+["offer","ऑफर","प्रस्ताव देना"],
+["organize","ऑर्गनाइज़","व्यवस्थित करना"],
+["participate","पार्टिसिपेट","भाग लेना"],
+["prefer","प्रिफ़र","पसंद करना"],
+["prepare","प्रिपेयर","तैयार करना"],
+["prevent","प्रिवेंट","रोकना"],
+["produce","प्रोड्यूस","उत्पादन करना"],
+["provide","प्रोवाइड","उपलब्ध कराना"],
+["realize","रियलाइज़","समझना / एहसास होना"],
+["reduce","रिड्यूस","कम करना"]["accessory","ऐक्सेसरी","सहायक वस्तु"],
+["addressed","अड्रेस्ड","संबोधित किया हुआ"],
+["adventure","एडवेंचर","रोमांचक अनुभव"],
+["advertisement","ऐडवर्टाइज़मेंट","विज्ञापन"],
+["agreement","अग्रीमेंट","समझौता"],
+["alarm","अलार्म","चेतावनी की घंटी"],
+["announcement","अनाउन्समेंट","घोषणा"],
+["apartment","अपार्टमेंट","फ्लैट"],
+["arrival","अराइवल","आगमन"],
+["assignment","असाइनमेंट","दिया गया कार्य"],
+["audience","ऑडियंस","दर्शक / श्रोता"],
+["balance","बैलेंस","शेष राशि / संतुलन"],
+["bank","बैंक","बैंक"],
+["bill","बिल","देय राशि का पर्चा"],
+["business","बिज़नेस","व्यवसाय"],
+["calendar","कैलेंडर","तिथिपत्र"],
+["career","करियर","व्यवसायिक जीवन"],
+["certificate","सर्टिफिकेट","प्रमाणपत्र"],
+["class","क्लास","कक्षा"],
+["classroom","क्लासरूम","कक्षा-कक्ष"],
+
+["competition","कॉम्पिटिशन","प्रतियोगिता"],
+["complaint","कम्प्लेंट","शिकायत"],
+["connection","कनेक्शन","जुड़ाव / संपर्क"],
+["course","कोर्स","पाठ्यक्रम"],
+["customer-service","कस्टमर-सर्विस","ग्राहक सेवा"],
+["deadline","डेडलाइन","अंतिम समय-सीमा"],
+["degree","डिग्री","उपाधि"],
+["delivery","डिलिवरी","सामान पहुँचाना"],
+["discount","डिस्काउंट","छूट"],
+["entrance","एंट्रन्स","प्रवेश-द्वार"],
+["exam","एग्ज़ैम","परीक्षा"],
+["fee","फीस","शुल्क"],
+["form","फॉर्म","प्रपत्र"],
+["grade","ग्रेड","श्रेणी / अंक-स्तर"],
+["holiday","हॉलिडे","छुट्टी"],
+["homework","होमवर्क","गृहकार्य"],
+["lesson","लेसन","पाठ"],
+["meeting-room","मीटिंग-रूम","बैठक कक्ष"],
+["notice-board","नोटिस-बोर्ड","सूचना-पट्ट"],
+["payment","पेमेंट","भुगतान"],
+
+["adopt","अडॉप्ट","अपनाना"],
+["announce","अनाउन्स","घोषणा करना"],
+["apologize","अपॉलजाइज़","माफ़ी माँगना"],
+["attend","अटेंड","उपस्थित होना"],
+["attract","अट्रैक्ट","आकर्षित करना"],
+["belong","बिलॉन्ग","संबंधित होना"],
+["bother","बॉदर","परेशान करना"],
+["calculate","कैल्क्युलेट","गणना करना"],
+["compare","कम्पेयर","तुलना करना"],
+["complain","कम्प्लेन","शिकायत करना"],
+["concentrate","कन्सन्ट्रेट","ध्यान केंद्रित करना"],
+["consider","कन्सिडर","विचार करना"],
+["contain","कन्टेन","समाहित करना"],
+["continue","कन्टिन्यू","जारी रखना"],
+["convince","कन्विन्स","विश्वास दिलाना"],
+["correctly","करेक्टली","सही ढंग से"],
+["damage","डैमेज","नुकसान पहुँचाना"],
+["describe","डिस्क्राइब","वर्णन करना"],
+["disappear","डिसअपीयर","गायब होना"],
+["divide","डिवाइड","विभाजित करना"],
+
+["earn","अर्न","कमाना"],
+["edit","एडिट","संपादित करना"],
+["examine","एग्ज़ैमिन","जाँच करना"],
+["exist","एग्ज़िस्ट","मौजूद होना"],
+["fail","फेल","असफल होना"],
+["fill","फिल","भरना"],
+["fold","फोल्ड","मोड़ना"],
+["gather","गैदर","इकट्ठा करना"],
+["guess","गेस","अनुमान लगाना"],
+["impress","इम्प्रेस","प्रभावित करना"],
+["improve","इम्प्रूव","सुधारना"],
+["inform","इन्फॉर्म","सूचित करना"],
+["install","इन्स्टॉल","स्थापित करना"],
+["introduce","इंट्रोड्यूस","परिचय कराना"],
+["invite","इनवाइट","आमंत्रित करना"],
+["jump","जम्प","कूदना"],
+["kick","किक","लात मारना"],
+["knock","नॉक","खटखटाना"],
+["pack","पैक","सामान बाँधना"],
+["print","प्रिंट","छापना"],
+
+["professional","प्रोफेशनल","पेशेवर"],
+["public","पब्लिक","सार्वजनिक"],
+["private","प्राइवेट","निजी"],
+["available","अवेलेबल","उपलब्ध"],
+["comfortable","कम्फर्टेबल","आरामदायक"],
+["dangerous","डेंजरस","खतरनाक"],
+["expensive","एक्सपेंसिव","महँगा"],
+["famous","फेमस","प्रसिद्ध"],
+["fresh","फ्रेश","ताज़ा"],
+["friendly","फ्रेंडली","मिलनसार"],
+["honest","ऑनेस्ट","ईमानदार"],
+["modern","मॉडर्न","आधुनिक"],
+["popular","पॉपुलर","लोकप्रिय"],
+["polite","पलाइट","विनम्र"],
+["poor","पुअर","गरीब"],
+["rich","रिच","अमीर"],
+["serious","सीरियस","गंभीर"],
+["strong","स्ट्रॉन्ग","मज़बूत"],
+["weak","वीक","कमज़ोर"],
+["wonderful","वंडरफुल","शानदार"]["ability","अबिलिटी","क्षमता"],
+["absence","ऐब्सेन्स","अनुपस्थिति"],
+["access","ऐक्सेस","पहुँच"],
+["accountant","अकाउंटेंट","लेखाकार"],
+["actor","ऐक्टर","अभिनेता"],
+["actress","ऐक्ट्रेस","अभिनेत्री"],
+["adult","अडल्ट","वयस्क"],
+["agent","एजेंट","प्रतिनिधि"],
+["agriculture","एग्रीकल्चर","कृषि"],
+["ambulance","ऐम्बुलेंस","रोगी वाहन"],
+["animal","ऐनिमल","जानवर"],
+["answering","आन्सरिंग","उत्तर देना"],
+["area","एरिया","क्षेत्र"],
+["artist","आर्टिस्ट","कलाकार"],
+["assistant","असिस्टेंट","सहायक"],
+["author","ऑथर","लेखक"],
+["baker","बेकर","रोटी बनाने वाला"],
+["banker","बैंकर","बैंक कर्मचारी"],
+["barber","बार्बर","नाई"],
+["beginner","बिगिनर","शुरुआती व्यक्ति"],
+
+["boss","बॉस","अधिकारी / मालिक"],
+["branch","ब्रांच","शाखा"],
+["buyer","बायर","खरीदार"],
+["candidate","कैंडिडेट","उम्मीदवार"],
+["captain","कैप्टन","कप्तान"],
+["cashier","कैशियर","नकद भुगतान लेने वाला"],
+["chef","शेफ","रसोइया"],
+["classmate","क्लासमेट","सहपाठी"],
+["client","क्लाइंट","ग्राहक"],
+["coach","कोच","प्रशिक्षक"],
+["colleague","कॉलीग","सहकर्मी"],
+["college-student","कॉलेज-स्टूडेंट","महाविद्यालय का विद्यार्थी"],
+["cook","कुक","रसोइया"],
+["driver","ड्राइवर","चालक"],
+["engineer","इंजीनियर","अभियंता"],
+["farmer","फार्मर","किसान"],
+["guard","गार्ड","सुरक्षाकर्मी"],
+["guide","गाइड","मार्गदर्शक"],
+["guesthouse","गेस्टहाउस","अतिथिगृह"],
+["host","होस्ट","मेज़बान"],
+
+["interviewer","इंटरव्यूअर","साक्षात्कार लेने वाला"],
+["journalist","जर्नलिस्ट","पत्रकार"],
+["lawyer","लॉयर","वकील"],
+["mechanic","मेकैनिक","मिस्त्री"],
+["nurse","नर्स","परिचारिका / परिचारक"],
+["officer","ऑफिसर","अधिकारी"],
+["passenger","पैसेंजर","यात्री"],
+["photographer","फोटोग्राफर","छायाकार"],
+["pilot","पायलट","विमान चालक"],
+["police","पुलिस","पुलिस"],
+["professor","प्रोफेसर","प्राध्यापक"],
+["programmer","प्रोग्रामर","प्रोग्राम बनाने वाला"],
+["receptionist","रिसेप्शनिस्ट","स्वागत कक्ष कर्मचारी"],
+["reporter","रिपोर्टर","समाचार संवाददाता"],
+["researcher","रिसर्चर","शोधकर्ता"],
+["seller","सेलर","विक्रेता"],
+["shopkeeper","शॉपकीपर","दुकानदार"],
+["student","स्टूडेंट","विद्यार्थी"],
+["teacher","टीचर","अध्यापक"],
+["waiter","वेटर","खाना परोसने वाला"],
+
+["acceptance","ऐक्सेप्टेन्स","स्वीकृति"],
+["behavioral","बिहेवियरल","व्यवहार संबंधी"],
+["businessman","बिज़नेसमैन","व्यवसायी"],
+["conversation","कन्वर्सेशन","बातचीत"],
+["documentary","डॉक्यूमेंटरी","वृत्तचित्र"],
+["education","एजुकेशन","शिक्षा"],
+["employment","एम्प्लॉयमेंट","रोज़गार"],
+["equipment","इक्विपमेंट","उपकरण"],
+["experience","एक्सपीरियंस","अनुभव"],
+["feedback","फीडबैक","प्रतिक्रिया"],
+["instruction","इन्स्ट्रक्शन","निर्देश"],
+["knowledge","नॉलेज","ज्ञान"],
+["language","लैंग्वेज","भाषा"],
+["material","मटीरियल","सामग्री"],
+["permission","परमिशन","अनुमति"],
+["practice","प्रैक्टिस","अभ्यास"],
+["progress","प्रोग्रेस","प्रगति"],
+["schedule","शेड्यूल","समय-सारणी"],
+["subject","सब्जेक्ट","विषय"],
+["uniform","यूनिफॉर्म","वर्दी"],
+
+["afraid","अफ्रेड","डरा हुआ"],
+["angry","ऐंग्री","गुस्से में"],
+["beautiful","ब्यूटिफुल","सुंदर"],
+["boring","बोरिंग","उबाऊ"],
+["brave","ब्रेव","बहादुर"],
+["bright","ब्राइट","चमकीला / तेज़"],
+["careful","केयरफुल","सावधान"],
+["cheap","चीप","सस्ता"],
+["clever","क्लेवर","चतुर"],
+["crowded","क्राउडेड","भीड़भाड़ वाला"],
+["curious","क्यूरियस","जिज्ञासु"],
+["dark","डार्क","अँधेरा"],
+["dead","डेड","मृत"],
+["delicious","डिलिशस","स्वादिष्ट"],
+["difficult","डिफिकल्ट","कठिन"],
+["familiar","फमिलियर","परिचित"],
+["fresh","फ्रेश","ताज़ा"],
+["generous","जेनरस","उदार"],
+["gentle","जेन्टल","कोमल / विनम्र"],
+["hungry","हंग्री","भूखा"]["hungry","हंग्री","भूखा"],
+["thirsty","थर्स्टी","प्यासा"],
+["ill","इल","बीमार"],
+["kind","काइंड","दयालु"],
+["lazy","लेज़ी","आलसी"],
+["lucky","लकी","भाग्यशाली"],
+["nervous","नर्वस","घबराया हुआ"],
+["noisy","नॉइज़ी","शोर वाला"],
+["quiet","क्वाइट","शांत"],
+["proud","प्राउड","गर्वित"],
+["polite","पलाइट","विनम्र"],
+["sadly","सैडली","दुखपूर्वक"],
+["sleepy","स्लीपी","नींद में"],
+["surprised","सरप्राइज़्ड","हैरान"],
+["worried","वर्ड","चिंतित"],
+["warm","वॉर्म","गर्म"],
+["cool","कूल","ठंडा / शीतल"],
+["dry","ड्राइ","सूखा"],
+["wet","वेट","गीला"],
+["soft","सॉफ्ट","नरम"],
+
+["hard","हार्ड","कठोर"],
+["heavy","हेवी","भारी"],
+["light","लाइट","हल्का"],
+["long","लॉन्ग","लंबा"],
+["short","शॉर्ट","छोटा"],
+["tall","टॉल","लंबा"],
+["thin","थिन","पतला"],
+["thick","थिक","मोटा"],
+["young","यंग","युवा"],
+["strongly","स्ट्रॉन्गली","मज़बूती से"],
+["weakly","वीकली","कमज़ोरी से"],
+["fast","फास्ट","तेज़"],
+["slow","स्लो","धीमा"],
+["cheaply","चीपली","सस्ते में"],
+["deep","डीप","गहरा"],
+["high","हाइ","ऊँचा"],
+["low","लो","नीचा"],
+["wide","वाइड","चौड़ा"],
+["narrow","नैरो","संकरा"],
+["round","राउंड","गोल"],
+
+["bottle","बॉटल","बोतल"],
+["box","बॉक्स","डिब्बा"],
+["cup","कप","प्याला"],
+["glass","ग्लास","गिलास"],
+["plate","प्लेट","थाली"],
+["spoon","स्पून","चम्मच"],
+["fork","फोर्क","काँटा"],
+["knife","नाइफ़","चाकू"],
+["towel","टॉवल","तौलिया"],
+["soap","सोप","साबुन"],
+["brush","ब्रश","ब्रश"],
+["mirror","मिरर","आईना"],
+["pillow","पिलो","तकिया"],
+["blanket","ब्लैंकेट","कंबल"],
+["bucket","बकेट","बाल्टी"],
+["key","की","चाबी"],
+["wallet","वॉलेट","बटुआ"],
+["umbrella","अम्ब्रेला","छाता"],
+["clock","क्लॉक","घड़ी"],
+["watch","वॉच","कलाई घड़ी"],
+
+["keyboard","कीबोर्ड","कुंजीपटल"],
+["mouse","माउस","कंप्यूटर माउस"],
+["screen","स्क्रीन","पर्दा / स्क्रीन"],
+["printer","प्रिंटर","मुद्रक"],
+["laptop","लैपटॉप","पोर्टेबल कंप्यूटर"],
+["charger","चार्जर","बैटरी चार्ज करने का उपकरण"],
+["battery","बैटरी","बैटरी"],
+["camera","कैमरा","कैमरा"],
+["headphone","हेडफोन","सिर पर लगाने वाला श्रवण उपकरण"],
+["speaker","स्पीकर","ध्वनि यंत्र"],
+["internet","इंटरनेट","अंतरजाल"],
+["website","वेबसाइट","वेबसाइट"],
+["password","पासवर्ड","गुप्त शब्द"],
+["username","यूज़रनेम","उपयोगकर्ता नाम"],
+["folder","फोल्डर","फ़ोल्डर"],
+["file","फाइल","दस्तावेज़ / फ़ाइल"],
+["software","सॉफ्टवेयर","कंप्यूटर प्रोग्राम"],
+["hardware","हार्डवेयर","कंप्यूटर के भौतिक उपकरण"],
+["screen-shot","स्क्रीन-शॉट","स्क्रीन की तस्वीर"],
+["keyboard-key","कीबोर्ड-की","कुंजीपटल की कुंजी"],
+
+["hello","हेलो","नमस्ते"],
+["goodbye","गुडबाय","अलविदा"],
+["please","प्लीज़","कृपया"],
+["sorry","सॉरी","माफ़ कीजिए"],
+["welcome","वेलकम","स्वागत"],
+["thanks","थैंक्स","धन्यवाद"],
+["yes","येस","हाँ"],
+["no","नो","नहीं"],
+["maybe","मेबी","शायद"],
+["okay","ओके","ठीक है"],
+["sure","श्योर","ज़रूर"],
+["really","रियली","सच में"],
+["exactly","एग्ज़ैक्टली","बिल्कुल सही"],
+["together","टुगेदर","साथ में"],
+["alone","अलोन","अकेला"],
+["again","अगेन","फिर से"],
+["always","ऑलवेज़","हमेशा"],
+["never","नेवर","कभी नहीं"],
+["often","ऑफन","अक्सर"],
+["sometimes","समटाइम्स","कभी-कभी"]["administrator","एडमिनिस्ट्रेटर","प्रशासक"],
+["application-software","ऐप्लिकेशन-सॉफ्टवेयर","अनुप्रयोग सॉफ्टवेयर"],
+["browser","ब्राउज़र","इंटरनेट देखने का प्रोग्राम"],
+["database","डेटाबेस","आँकड़ों का संग्रह"],
+["desktop","डेस्कटॉप","कंप्यूटर का मुख्य स्क्रीन"],
+["device","डिवाइस","उपकरण"],
+["display","डिस्प्ले","प्रदर्शन स्क्रीन"],
+["driver","ड्राइवर","उपकरण चलाने वाला सॉफ्टवेयर"],
+["extension","एक्सटेंशन","फ़ाइल का प्रकार बताने वाला भाग"],
+["hardware","हार्डवेयर","कंप्यूटर के भौतिक भाग"],
+["icon","आइकन","प्रतीक चिन्ह"],
+["input","इनपुट","प्रवेशित जानकारी"],
+["interface","इंटरफेस","उपयोगकर्ता और सिस्टम के बीच माध्यम"],
+["memory","मेमोरी","स्मृति"],
+["monitor","मॉनिटर","स्क्रीन"],
+["network","नेटवर्क","कंप्यूटरों का जुड़ा हुआ तंत्र"],
+["output","आउटपुट","प्राप्त परिणाम"],
+["processor","प्रोसेसर","प्रसंस्करण इकाई"],
+["program","प्रोग्राम","कंप्यूटर को दिए गए निर्देश"],
+["resolution","रेज़ोल्यूशन","स्क्रीन की स्पष्टता"],
+["server","सर्वर","सेवा देने वाला कंप्यूटर"],
+["storage","स्टोरेज","भंडारण स्थान"],
+["system","सिस्टम","प्रणाली"],
+["technology","टेक्नोलॉजी","प्रौद्योगिकी"],
+["update","अपडेट","नया सुधारित संस्करण"],
+["upload","अपलोड","ऑनलाइन भेजना"],
+["virus","वायरस","हानिकारक कंप्यूटर प्रोग्राम"],
+["webpage","वेबपेज","वेबसाइट का एक पृष्ठ"],
+["wireless","वायरलेस","बिना तार का"],
+["shortcut","शॉर्टकट","त्वरित तरीका"],
+
+["backspace","बैकस्पेस","पीछे का अक्षर मिटाने की कुंजी"],
+["capslock","कैप्सलॉक","बड़े अक्षर लिखने की कुंजी"],
+["control","कंट्रोल","नियंत्रण"],
+["delete","डिलीट","मिटाना"],
+["enter-key","एंटर-की","प्रवेश कुंजी"],
+["escape-key","एस्केप-की","बाहर निकलने की कुंजी"],
+["function-key","फंक्शन-की","विशेष कार्य की कुंजी"],
+["insert","इन्सर्ट","सम्मिलित करना"],
+["shift-key","शिफ्ट-की","अक्षर या चिन्ह बदलने की कुंजी"],
+["spacebar","स्पेसबार","खाली स्थान देने की कुंजी"],
+
+["attachment","अटैचमेंट","संलग्न फ़ाइल"],
+["compose","कम्पोज़","तैयार करना / लिखना"],
+["draft","ड्राफ्ट","मसौदा"],
+["forward-email","फॉरवर्ड-ईमेल","ईमेल आगे भेजना"],
+["inbox","इनबॉक्स","प्राप्त ईमेल का स्थान"],
+["outbox","आउटबॉक्स","भेजे जाने वाले ईमेल का स्थान"],
+["recipient","रेसिपिएंट","प्राप्तकर्ता"],
+["sender","सेंडर","भेजने वाला"],
+["subject-line","सब्जेक्ट-लाइन","ईमेल का विषय"],
+["reply-all","रिप्लाई-ऑल","सभी को उत्तर देना"],
+
+["attendance","अटेंडन्स","उपस्थिति"],
+["break-time","ब्रेक-टाइम","आराम का समय"],
+["colleague","कॉलीग","सहकर्मी"],
+["conference","कॉन्फ्रेंस","सम्मेलन"],
+["coworker","कोवर्कर","साथ काम करने वाला"],
+["employee-id","एम्प्लॉयी-आईडी","कर्मचारी पहचान संख्या"],
+["employer","एम्प्लॉयर","नियोक्ता"],
+["employment","एम्प्लॉयमेंट","रोज़गार"],
+["experience-letter","एक्सपीरियंस-लेटर","अनुभव प्रमाण-पत्र"],
+["full-time","फुल-टाइम","पूर्णकालिक"],
+["part-time","पार्ट-टाइम","अंशकालिक"],
+["payroll","पेरोल","कर्मचारियों के वेतन का रिकॉर्ड"],
+["salary","सैलरी","वेतन"],
+["shift","शिफ्ट","काम की पाली"],
+["workplace","वर्कप्लेस","कार्यस्थल"],
+["vacancy","वेकेंसी","रिक्त पद"],
+
+["applicant","ऐप्लिकेंट","आवेदक"],
+["application-form","ऐप्लिकेशन-फॉर्म","आवेदन पत्र"],
+["biography","बायोग्राफी","जीवन-वृत्त"],
+["cover-letter","कवर-लेटर","आवेदन के साथ भेजा जाने वाला पत्र"],
+["curriculum-vitae","करिकुलम-विटे","बायोडाटा"],
+["qualification","क्वॉलिफिकेशन","योग्यता"],
+["reference","रेफरेंस","संदर्भ"],
+["resume","रेज़्यूमे","बायोडाटा"],
+["signature","सिग्नेचर","हस्ताक्षर"],
+["document-copy","डॉक्यूमेंट-कॉपी","दस्तावेज़ की प्रति"],
+
+["introduce-yourself","इंट्रोड्यूस-योरसेल्फ","अपना परिचय देना"],
+["strength","स्ट्रेंथ","मज़बूती / गुण"],
+["weakness","वीकनेस","कमज़ोरी"],
+["qualification-detail","क्वॉलिफिकेशन-डिटेल","योग्यता का विवरण"],
+["work-experience","वर्क-एक्सपीरियंस","कार्य अनुभव"],
+["career-goal","करियर-गोल","करियर का लक्ष्य"],
+["salary-expectation","सैलरी-एक्सपेक्टेशन","वेतन की अपेक्षा"],
+["availability","अवेलेबिलिटी","उपलब्धता"],
+["responsibility","रिस्पॉन्सिबिलिटी","ज़िम्मेदारी"],
+["achievement","अचीवमेंट","उपलब्धि"],
+["skill-set","स्किल-सेट","कौशलों का समूह"],
+["qualification-certificate","क्वॉलिफिकेशन-सर्टिफिकेट","योग्यता प्रमाणपत्र"],
+["notice-period","नोटिस-पीरियड","नौकरी छोड़ने से पहले की निर्धारित अवधि"],
+["joining-date","जॉइनिंग-डेट","नौकरी शुरू करने की तारीख"],
+["reference-person","रेफरेंस-पर्सन","संदर्भ देने वाला व्यक्ति"],
+
+["hire","हायर","नौकरी पर रखना"],
+["recruit","रिक्रूट","भर्ती करना"],
+["resign","रिज़ाइन","इस्तीफा देना"],
+["promote","प्रमोट","पदोन्नति देना"],
+["transfer","ट्रांसफर","स्थानांतरण करना"],
+["supervise","सुपरवाइज़","निगरानी करना"],
+["coordinate","कोऑर्डिनेट","समन्वय करना"],
+["delegate","डेलिगेट","काम सौंपना"],
+["negotiate","नेगोशिएट","बातचीत करके समझौता करना"],
+["perform","परफॉर्म","कार्य करना"],
+["complete","कम्प्लीट","पूरा करना"],
+["submit","सबमिट","जमा करना"],
+["review","रिव्यू","समीक्षा करना"],
+["approve","अप्रूव","मंज़ूर करना"],
+["reject","रिजेक्ट","अस्वीकार करना"],
+["respond","रिस्पॉन्ड","उत्तर देना"],
+["request","रिक्वेस्ट","अनुरोध करना"],
+["require","रिक्वायर","आवश्यक होना"],
+["solve","सॉल्व","समस्या हल करना"],
+["suggest","सजेस्ट","सुझाव देना"],
+
+["professionalism","प्रोफेशनलिज़्म","पेशेवर व्यवहार"],
+["punctuality","पंक्चुअलिटी","समय की पाबंदी"],
+["discipline","डिसिप्लिन","अनुशासन"],
+["teamwork","टीमवर्क","मिलकर काम करना"],
+["leadership","लीडरशिप","नेतृत्व क्षमता"],
+["confidence","कॉन्फिडेन्स","आत्मविश्वास"],
+["creativity","क्रिएटिविटी","रचनात्मकता"],
+["flexibility","फ्लेक्सिबिलिटी","लचीलापन"],
+["patience","पेशन्स","धैर्य"],
+["responsible","रिस्पॉन्सिबल","ज़िम्मेदार"],
+["reliable","रिलाएबल","विश्वसनीय"],
+["punctual","पंक्चुअल","समय का पाबंद"],
+["experienced","एक्सपीरियन्स्ड","अनुभवी"],
+["qualified","क्वॉलिफाइड","योग्य"]["backup","बैकअप","सुरक्षित प्रतिलिपि"],
+["boot","बूट","कंप्यूटर शुरू होना"],
+["cloud","क्लाउड","ऑनलाइन भंडारण सेवा"],
+["command","कमांड","आदेश"],
+["compatibility","कम्पैटिबिलिटी","अनुकूलता"],
+["connection-speed","कनेक्शन-स्पीड","कनेक्शन की गति"],
+["cursor","कर्सर","स्क्रीन पर संकेतक"],
+["cybersecurity","साइबरसिक्योरिटी","साइबर सुरक्षा"],
+["cyberspace","साइबरस्पेस","ऑनलाइन डिजिटल क्षेत्र"],
+["data","डेटा","आँकड़े / जानकारी"],
+["debugging","डीबगिंग","कंप्यूटर त्रुटि ढूँढने की प्रक्रिया"],
+["directory","डायरेक्टरी","फ़ोल्डरों की सूची"],
+["encryption","एन्क्रिप्शन","जानकारी को सुरक्षित कूट में बदलना"],
+["file-name","फाइल-नेम","फ़ाइल का नाम"],
+["firewall","फायरवॉल","सुरक्षा प्रणाली"],
+["format","फॉर्मैट","स्वरूप"],
+["gigabyte","गीगाबाइट","डेटा की माप की इकाई"],
+["hardware-store","हार्डवेयर-स्टोर","हार्डवेयर की दुकान"],
+["homepage","होमपेज","वेबसाइट का मुख्य पृष्ठ"],
+["installation","इन्स्टॉलेशन","स्थापना"],
+
+["login","लॉगिन","खाते में प्रवेश"],
+["logout","लॉगआउट","खाते से बाहर निकलना"],
+["megabyte","मेगाबाइट","डेटा की माप की इकाई"],
+["password-reset","पासवर्ड-रीसेट","पासवर्ड दोबारा निर्धारित करना"],
+["pixel","पिक्सेल","स्क्रीन की सबसे छोटी चित्र इकाई"],
+["plug-in","प्लग-इन","अतिरिक्त सॉफ्टवेयर घटक"],
+["recovery","रिकवरी","पुनर्प्राप्ति"],
+["recycle-bin","रीसायकल-बिन","हटाई गई फ़ाइलों का स्थान"],
+["refresh","रिफ्रेश","पृष्ठ को फिर से लोड करना"],
+["router","राउटर","नेटवर्क जोड़ने वाला उपकरण"],
+["scan","स्कैन","जाँच करके डिजिटल रूप देना"],
+["search-engine","सर्च-इंजन","जानकारी खोजने की ऑनलाइन सेवा"],
+["software-update","सॉफ्टवेयर-अपडेट","सॉफ्टवेयर का नया संस्करण"],
+["spreadsheet","स्प्रेडशीट","तालिका आधारित डेटा फ़ाइल"],
+["template","टेम्पलेट","पहले से तैयार नमूना"],
+["troubleshooting","ट्रबलशूटिंग","समस्या खोजकर ठीक करने की प्रक्रिया"],
+["username-change","यूज़रनेम-चेंज","उपयोगकर्ता नाम बदलना"],
+["webcam","वेबकैम","कंप्यूटर कैमरा"],
+["wifi","वाई-फाई","बेतार इंटरनेट कनेक्शन"],
+["workspace","वर्कस्पेस","काम करने का डिजिटल स्थान"],
+
+["agenda","अजेंडा","बैठक के विषयों की सूची"],
+["approval","अप्रूवल","मंज़ूरी"],
+["branch-office","ब्रांच-ऑफिस","शाखा कार्यालय"],
+["business-card","बिज़नेस-कार्ड","व्यावसायिक परिचय-पत्र"],
+["conference-room","कॉन्फ्रेंस-रूम","सम्मेलन कक्ष"],
+["contract","कॉन्ट्रैक्ट","अनुबंध"],
+["deadline-date","डेडलाइन-डेट","अंतिम तारीख"],
+["desk","डेस्क","काम करने की मेज़"],
+["employee","एम्प्लॉयी","कर्मचारी"],
+["executive","एग्ज़िक्यूटिव","कार्यकारी अधिकारी"],
+["file-folder","फाइल-फोल्डर","फ़ाइल रखने का फ़ोल्डर"],
+["managerial","मैनेजरियल","प्रबंधकीय"],
+["memo","मेमो","कार्यालयी ज्ञापन"],
+["minutes","मिनिट्स","बैठक की कार्यवाही का रिकॉर्ड"],
+["notice","नोटिस","सूचना"],
+["office-hours","ऑफिस-आवर्स","कार्यालय का कार्य समय"],
+["reception","रिसेप्शन","स्वागत कक्ष"],
+["report","रिपोर्ट","प्रतिवेदन"],
+["staff","स्टाफ","कर्मचारी वर्ग"],
+["team","टीम","दल"],
+
+["agenda-item","अजेंडा-आइटम","बैठक का एक विषय"],
+["appointment-letter","अपॉइंटमेंट-लेटर","नियुक्ति पत्र"],
+["attendance-sheet","अटेंडन्स-शीट","उपस्थिति पत्रक"],
+["authorization","ऑथराइज़ेशन","अधिकृत अनुमति"],
+["branch-manager","ब्रांच-मैनेजर","शाखा प्रबंधक"],
+["business-plan","बिज़नेस-प्लान","व्यवसाय योजना"],
+["company-policy","कम्पनी-पॉलिसी","कंपनी की नीति"],
+["contractor","कॉन्ट्रैक्टर","ठेकेदार"],
+["customer-care","कस्टमर-केयर","ग्राहक सहायता"],
+["department-head","डिपार्टमेंट-हेड","विभागाध्यक्ष"],
+["employee-benefit","एम्प्लॉयी-बेनिफिट","कर्मचारी लाभ"],
+["job-description","जॉब-डिस्क्रिप्शन","नौकरी का विवरण"],
+["job-offer","जॉब-ऑफर","नौकरी का प्रस्ताव"],
+["job-title","जॉब-टाइटल","पद का नाम"],
+["monthly-salary","मंथली-सैलरी","मासिक वेतन"],
+["overtime","ओवरटाइम","अतिरिक्त कार्य समय"],
+["promotion","प्रमोशन","पदोन्नति"],
+["recruitment","रिक्रूटमेंट","भर्ती प्रक्रिया"],
+["workload","वर्कलोड","काम का बोझ"],
+["workplace-rule","वर्कप्लेस-रूल","कार्यस्थल का नियम"],
+
+["applicant-form","ऐप्लिकेंट-फॉर्म","आवेदक का प्रपत्र"],
+["background-check","बैकग्राउंड-चेक","पृष्ठभूमि की जाँच"],
+["cover-page","कवर-पेज","मुखपृष्ठ"],
+["educational-qualification","एजुकेशनल-क्वॉलिफिकेशन","शैक्षणिक योग्यता"],
+["interview-panel","इंटरव्यू-पैनल","साक्षात्कार लेने वाला दल"],
+["interview-question","इंटरव्यू-क्वेश्चन","साक्षात्कार का प्रश्न"],
+["interview-room","इंटरव्यू-रूम","साक्षात्कार कक्ष"],
+["job-application","जॉब-ऐप्लिकेशन","नौकरी का आवेदन"],
+["job-interview","जॉब-इंटरव्यू","नौकरी का साक्षात्कार"],
+["personal-details","पर्सनल-डीटेल्स","व्यक्तिगत विवरण"],
+["professional-summary","प्रोफेशनल-समरी","पेशेवर संक्षिप्त परिचय"],
+["reference-letter","रेफरेंस-लेटर","संदर्भ पत्र"],
+["selection-process","सेलेक्शन-प्रोसेस","चयन प्रक्रिया"],
+["shortlist","शॉर्टलिस्ट","चयनित उम्मीदवारों की छोटी सूची"],
+["work-history","वर्क-हिस्ट्री","पिछले काम का विवरण"],
+
+["adaptable","अडैप्टेबल","परिस्थिति के अनुसार ढलने वाला"],
+["ambitious","ऐम्बिशस","महत्त्वाकांक्षी"],
+["analytical","ऐनालिटिकल","विश्लेषणात्मक"],
+["creative","क्रिएटिव","रचनात्मक"],
+["dependable","डिपेंडेबल","भरोसेमंद"],
+["efficient","इफिशिएंट","कुशल"],
+["energetic","एनर्जेटिक","ऊर्जावान"],
+["enthusiastic","एन्थूज़ियास्टिक","उत्साही"],
+["flexible","फ्लेक्सिबल","लचीला"],
+["motivated","मोटिवेटेड","प्रेरित"],
+["organized","ऑर्गनाइज़्ड","व्यवस्थित"],
+["patient","पेशेन्ट","धैर्यवान"],
+["positive","पॉज़िटिव","सकारात्मक"],
+["practical","प्रैक्टिकल","व्यावहारिक"],
+["professional-looking","प्रोफेशनल-लुकिंग","पेशेवर दिखने वाला"],
+["responsible-worker","रिस्पॉन्सिबल-वर्कर","ज़िम्मेदार कर्मचारी"],
+["self-confident","सेल्फ-कॉन्फिडेन्ट","आत्मविश्वासी"],
+["self-motivated","सेल्फ-मोटिवेटेड","स्वयं प्रेरित"],
+["team-oriented","टीम-ओरिएन्टेड","टीम के साथ काम करने वाला"],
+["trustworthy","ट्रस्टवर्दी","विश्वसनीय"],
+
+["answer","आन्सर","उत्तर"],
+["questionnaire","क्वेश्चनेयर","प्रश्नावली"],
+["qualification-level","क्वॉलिफिकेशन-लेवल","योग्यता का स्तर"],
+["career-plan","करियर-प्लान","करियर की योजना"],
+["career-path","करियर-पाथ","करियर का मार्ग"],
+["expected-salary","एक्सपेक्टेड-सैलरी","अपेक्षित वेतन"],
+["joining","जॉइनिंग","नौकरी शुरू करना"],
+["interviewer-question","इंटरव्यूअर-क्वेश्चन","साक्षात्कारकर्ता का प्रश्न"],
+["candidate-profile","कैंडिडेट-प्रोफाइल","उम्मीदवार की प्रोफ़ाइल"],
+["selection","सेलेक्शन","चयन"],
+["rejection","रिजेक्शन","अस्वीकृति"],
+["offer-letter","ऑफर-लेटर","नौकरी प्रस्ताव पत्र"],
+["probation","प्रोबेशन","परिवीक्षा अवधि"],
+["internship","इंटर्नशिप","प्रशिक्षु अवधि"],
+["intern","इंटर्न","प्रशिक्षु"],
+["trainee","ट्रेनी","प्रशिक्षु"],
+["supervisor","सुपरवाइज़र","पर्यवेक्षक"],
+["technician","टेक्नीशियन","तकनीशियन"],
+["operator","ऑपरेटर","संचालक"],
+["analyst","ऐनालिस्ट","विश्लेषक"],
+
+["type","टाइप","प्रकार / लिखना"],
+["typing","टाइपिंग","टंकण"],
+["copy-paste","कॉपी-पेस्ट","प्रतिलिपि बनाकर चिपकाना"],
+["save-as","सेव-ऐज़","दूसरे नाम से सहेजना"],
+["print-preview","प्रिंट-प्रिव्यू","छपाई से पहले का दृश्य"],
+["document-editor","डॉक्यूमेंट-एडिटर","दस्तावेज़ संपादन प्रोग्राम"],
+["text-editor","टेक्स्ट-एडिटर","पाठ संपादक"],
+["presentation","प्रेज़ेन्टेशन","प्रस्तुति"],
+["slide","स्लाइड","प्रस्तुति का एक पृष्ठ"],
+["spreadsheet-cell","स्प्रेडशीट-सेल","तालिका का एक खाना"],
+["formula","फॉर्म्युला","सूत्र"],
+["table","टेबल","सारणी"],
+["column","कॉलम","स्तंभ"],
+["row","रो","पंक्ति"]["shopkeeper","शॉपकीपर","दुकानदार"],
+["customer","कस्टमर","ग्राहक"],
+["discount","डिस्काउंट","छूट"],
+["bill","बिल","खरीदारी की रसीद"],
+["receipt","रिसीट","रसीद"],
+["basket","बास्केट","टोकरी"],
+["cart","कार्ट","सामान रखने की गाड़ी"],
+["brand","ब्रैंड","वस्तु का नाम / कंपनी का नाम"],
+["quality","क्वॉलिटी","गुणवत्ता"],
+["size","साइज़","आकार"],
+["quantity","क्वॉन्टिटी","मात्रा"],
+
+];
+
+/* =========================================================
+   LEVEL CREATOR
+========================================================= */
+
+function createLevels(){
+
+ let arr=[];
+
+ for(
+  let i=0;
+  i<vocabulary.length;
+  i+=15
+ ){
+
+  arr.push({
+   number:arr.length+1,
+   words:vocabulary.slice(i,i+15)
+  });
+
+ }
+
+ return arr;
+}
+
+let levels=createLevels();
+
+
+/* =========================================================
+   SAVED DATA
+========================================================= */
+
+let currentLevel=1;
+
+let completed=
+ Number(
+  localStorage.getItem(
+   "academyCompleted"
+  ) || 0
+ );
+
+let xp=
+ Number(
+  localStorage.getItem(
+   "academyXP"
+  ) || 0
+ );
+
+let streak=
+ Number(
+  localStorage.getItem(
+   "academyStreak"
+  ) || 0
+ );
+
+let soundOn=
+ localStorage.getItem(
+  "academySound"
+ );
+
+if(soundOn===null){
+ soundOn=true;
+}else{
+ soundOn=soundOn==="true";
+}
+
+
+/* =========================================================
+   PROFESSIONAL SOUND ENGINE
+   कोई external sound file नहीं।
+========================================================= */
+
+let audioContext=null;
+
+function getAudio(){
+
+ if(!audioContext){
+
+  const AudioContext=
+   window.AudioContext ||
+   window.webkitAudioContext;
+
+  if(AudioContext){
+   audioContext=new AudioContext();
+  }
+
+ }
+
+ return audioContext;
+}
+
+
+function tone(
+ frequency,
+ duration,
+ type="sine",
+ volume=.04
+){
+
+ if(!soundOn)return;
+
+ const ctx=getAudio();
+
+ if(!ctx)return;
+
+ if(ctx.state==="suspended"){
+  ctx.resume();
+ }
+
+ const osc=
+  ctx.createOscillator();
+
+ const gain=
+  ctx.createGain();
+
+ osc.type=type;
+
+ osc.frequency.setValueAtTime(
+  frequency,
+  ctx.currentTime
+ );
+
+ gain.gain.setValueAtTime(
+  0,
+  ctx.currentTime
+ );
+
+ gain.gain.linearRampToValueAtTime(
+  volume,
+  ctx.currentTime+.01
+ );
+
+ gain.gain.exponentialRampToValueAtTime(
+  .001,
+  ctx.currentTime+duration
+ );
+
+ osc.connect(gain);
+ gain.connect(ctx.destination);
+
+ osc.start();
+
+ osc.stop(
+  ctx.currentTime+duration+.03
+ );
+}
+
+
+/* CLICK SOUND */
+
+function clickSound(){
+
+ tone(520,.055,"sine",.035);
+
+ setTimeout(()=>{
+  tone(720,.07,"sine",.025);
+ },35);
+
+}
+
+
+/* SUCCESS SOUND */
+
+function successSound(){
+
+ tone(523,.12,"sine",.045);
+
+ setTimeout(()=>{
+  tone(659,.12,"sine",.045);
+ },100);
+
+ setTimeout(()=>{
+  tone(784,.20,"sine",.05);
+ },200);
+
+}
+
+
+/* FAIL SOUND */
+
+function failSound(){
+
+ tone(220,.12,"sine",.04);
+
+ setTimeout(()=>{
+  tone(170,.18,"sine",.035);
+ },100);
+
+}
+
+
+/* START SOUND */
+
+function startSound(){
+
+ tone(392,.08,"sine",.035);
+
+ setTimeout(()=>{
+  tone(523,.12,"sine",.04);
+ },80);
+
+ setTimeout(()=>{
+  tone(659,.16,"sine",.04);
+ },160);
+
+}
+
+
+/* =========================================================
+   START APP
+========================================================= */
+
+function startApp(){
+
+ startSound();
+
+ document.getElementById(
+  "start"
+ ).style.display="none";
+
+ document.getElementById(
+  "header"
+ ).style.display="flex";
+
+ document.getElementById(
+  "app"
+ ).style.display="block";
+
+ renderLevels();
+
+ updateStats();
+
+}
+
+
+/* =========================================================
+   LEVEL PATH
+========================================================= */
+
+function renderLevels(){
+
+ levels=createLevels();
+
+ const box=
+  document.getElementById(
+   "levelPath"
+  );
+
+ box.innerHTML="";
+
+ levels.forEach(level=>{
+
+  const locked=
+   level.number >
+   completed+1;
+
+  const done=
+   level.number <=
+   completed;
+
+  const card=
+   document.createElement(
+    "div"
+   );
+
+  card.className="level";
+
+  if(locked)
+   card.classList.add("locked");
+
+  if(done)
+   card.classList.add("done");
+
+  let icon="▶";
+
+  if(locked)
+   icon="🔒";
+
+  if(done)
+   icon="✓";
+
+  card.innerHTML=`
+
+   <span class="status">
+
+    ${
+     done
+      ? "COMPLETED"
+      : locked
+      ? "LOCKED"
+      : "START"
+    }
+
+   </span>
+
+   <div class="circle">
+    ${icon}
+   </div>
+
+   <h3>
+    Level ${level.number}
+   </h3>
+
+   <p>
+    ${level.words.length}
+    vocabulary words
+   </p>
+
+  `;
+
+  if(!locked){
+
+   card.onclick=()=>{
+
+    clickSound();
+
+    openLesson(
+     level.number
+    );
+
+   };
+
+  }
+
+  box.appendChild(card);
+
+ });
+
+ updateProgress();
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function updateProgress(){
+
+ const total=
+  levels.length;
+
+ const percent=
+  total
+   ? Math.round(
+      completed/total*100
+     )
+   : 0;
+
+ document.getElementById(
+  "progressBar"
+ ).style.width=
+  percent+"%";
+
+ document.getElementById(
+  "progressLabel"
+ ).textContent=
+  percent+"%";
+
+ document.getElementById(
+  "headerLevel"
+ ).textContent=
+  Math.min(
+   completed+1,
+   Math.max(total,1)
+  );
+
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+function updateStats(){
+
+ document.getElementById(
+  "xp"
+ ).textContent=xp;
+
+ document.getElementById(
+  "xpBig"
+ ).textContent=xp;
+
+ document.getElementById(
+  "streak"
+ ).textContent=streak;
+
+ updateProgress();
+
+ updateSoundUI();
+
+}
+
+
+/* =========================================================
+   OPEN LESSON
+========================================================= */
+
+function openLesson(number){
+
+ currentLevel=number;
+
+ hideAll();
+
+ document.getElementById(
+  "wordPage"
+ ).style.display="block";
+
+ document.getElementById(
+  "lessonTitle"
+ ).textContent=
+  "Level "+number;
+
+ showWords();
+
+ window.scrollTo(0,0);
+
+}
+
+
+/* =========================================================
+   SHOW WORDS
+========================================================= */
+
+function showWords(){
+
+ const box=
+  document.getElementById(
+   "wordList"
+  );
+
+ box.innerHTML="";
+
+ const level=
+  levels.find(
+   x=>x.number===currentLevel
+  );
+
+ if(!level)return;
+
+ level.words.forEach(
+  (word,index)=>{
+
+   const item=
+    document.createElement(
+     "div"
+    );
+
+   item.className="word";
+
+   item.style.animationDelay=
+    (index*.035)+"s";
+
+   item.innerHTML=`
+
+    <div class="wordNo">
+     ${index+1}
+    </div>
+
+    <div>
+
+     <div class="wordEnglish">
+      ${safe(word[0])}
+     </div>
+
+     <div class="pron">
+      (${safe(word[1])})
+     </div>
+
+     <div class="meaning">
+      = ${safe(word[2])}
+     </div>
+
+    </div>
+
+   `;
+
+   box.appendChild(item);
+
+  }
+ );
+
+}
+
+
+/* =========================================================
+   START TEST
+========================================================= */
+
+function startTest(){
+
+ clickSound();
+
+ const level=
+  levels.find(
+   x=>x.number===currentLevel
+  );
+
+ if(
+  !level ||
+  level.words.length<15
+ ){
+
+  alert(
+   "इस level में test के लिए 15 words पूरे होने चाहिए।"
+  );
+
+  return;
+ }
+
+ hideAll();
+
+ document.getElementById(
+  "testPage"
+ ).style.display="block";
+
+ document.getElementById(
+  "testTitle"
+ ).textContent=
+  "Level "+currentLevel+
+  " Test";
+
+ document.getElementById(
+  "result"
+ ).style.display="none";
+
+ createQuiz(
+  level.words
+ );
+
+ window.scrollTo(0,0);
+
+}
+
+
+/* =========================================================
+   CREATE QUIZ
+========================================================= */
+
+function createQuiz(words){
+
+ const quiz=
+  document.getElementById(
+   "quiz"
+  );
+
+ quiz.innerHTML="";
+
+ words.forEach(
+  (word,index)=>{
+
+   let answers=[
+    word[2]
+   ];
+
+   words.forEach(
+    other=>{
+
+     if(
+      other[2]!==word[2] &&
+      !answers.includes(
+       other[2]
+      ) &&
+      answers.length<4
+     ){
+
+      answers.push(
+       other[2]
+      );
+
+     }
+
+    }
+   );
+
+   shuffle(answers);
+
+   const q=
+    document.createElement(
+     "div"
+    );
+
+   q.className="question";
+
+   q.innerHTML=`
+
+    <h3>
+     ${index+1}.
+     "${safe(word[0])}"
+     का सही हिंदी अर्थ क्या है?
+    </h3>
+
+    ${answers.map(
+     answer=>`
+
+      <label class="option">
+
+       <input
+        type="radio"
+        name="question${index}"
+        value="${safe(answer)}"
+       >
+
+       ${safe(answer)}
+
+      </label>
+
+     `
+    ).join("")}
+
+   `;
+
+   quiz.appendChild(q);
+
+  }
+ );
+
+}
+
+
+/* =========================================================
+   SUBMIT TEST
+========================================================= */
+
+function submitTest(e){
+
+ e.preventDefault();
+
+ clickSound();
+
+ const level=
+  levels.find(
+   x=>x.number===currentLevel
+  );
+
+ if(!level)return;
+
+ let score=0;
+
+ level.words.forEach(
+  (word,index)=>{
+
+   const selected=
+    document.querySelector(
+     `input[name="question${index}"]:checked`
+    );
+
+   if(
+    selected &&
+    selected.value===word[2]
+   ){
+
+    score++;
+
+   }
+
+  }
+ );
+
+ const total=
+  level.words.length;
+
+ const percent=
+  Math.round(
+   score/total*100
+  );
+
+ document.getElementById(
+  "result"
+ ).style.display="block";
+
+ if(percent>=75){
+
+  successSound();
+
+  document.getElementById(
+   "resultTitle"
+  ).textContent=
+   "LEVEL COMPLETE ✓";
+
+  document.getElementById(
+   "resultText"
+  ).textContent=
+   `आपने ${score}/${total} `
+   +`(${percent}%) score किया। `
+   +`बहुत बढ़िया! अगला level unlock हो गया।`;
+
+  if(
+   currentLevel>completed
+  ){
+
+   completed=
+    currentLevel;
+
+   xp+=100;
+
+   streak++;
+
+   localStorage.setItem(
+    "academyCompleted",
+    completed
+   );
+
+   localStorage.setItem(
+    "academyXP",
+    xp
+   );
+
+   localStorage.setItem(
+    "academyStreak",
+    streak
+   );
+
+  }
+
+  document.getElementById(
+   "nextBtn"
+  ).style.display="block";
+
+  updateStats();
+
+  celebrate();
+
+ }else{
+
+  failSound();
+
+  document.getElementById(
+   "resultTitle"
+  ).textContent=
+   "KEEP PRACTICING";
+
+  document.getElementById(
+   "resultText"
+  ).textContent=
+   `आपने ${score}/${total} `
+   +`(${percent}%) score किया। `
+   +`अगला level unlock करने के लिए कम से कम 75% चाहिए।`;
+
+  document.getElementById(
+   "nextBtn"
+  ).style.display="none";
+
+ }
+
+}
+
+
+/* =========================================================
+   CELEBRATION
+========================================================= */
+
+function celebrate(){
+
+ const box=
+  document.getElementById(
+   "celebrate"
+  );
+
+ box.classList.add("show");
+
+ setTimeout(()=>{
+  box.classList.remove("show");
+ },1000);
+
+}
+
+
+/* =========================================================
+   RETRY
+========================================================= */
+
+function retry(){
+
+ clickSound();
+
+ document.getElementById(
+  "result"
+ ).style.display="none";
+
+ const level=
+  levels.find(
+   x=>x.number===currentLevel
+  );
+
+ createQuiz(
+  level.words
+ );
+
+ window.scrollTo(0,0);
+
+}
+
+
+/* =========================================================
+   NEXT LEVEL
+========================================================= */
+
+function nextLevel(){
+
+ clickSound();
+
+ if(
+  currentLevel<levels.length
+ ){
+
+  currentLevel++;
+
+  openLesson(
+   currentLevel
+  );
+
+ }else{
+
+  home();
+
+  successSound();
+
+  alert(
+   "Congratulations! सभी available levels complete हो गए।"
+  );
+
+ }
+
+}
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+function home(){
+
+ clickSound();
+
+ hideAll();
+
+ document.getElementById(
+  "app"
+ ).style.display="block";
+
+ renderLevels();
+
+ window.scrollTo(0,0);
+
+}
+
+
+/* =========================================================
+   LESSON BACK
+========================================================= */
+
+function lessonPage(){
+
+ clickSound();
+
+ hideAll();
+
+ document.getElementById(
+  "wordPage"
+ ).style.display="block";
+
+ showWords();
+
+ window.scrollTo(0,0);
+
+}
+
+
+/* =========================================================
+   HIDE ALL
+========================================================= */
+
+function hideAll(){
+
+ document.getElementById(
+  "app"
+ ).style.display="none";
+
+ document.getElementById(
+  "wordPage"
+ ).style.display="none";
+
+ document.getElementById(
+  "testPage"
+ ).style.display="none";
+
+}
+
+
+/* =========================================================
+   SHUFFLE
+========================================================= */
+
+function shuffle(arr){
+
+ for(
+  let i=arr.length-1;
+  i>0;
+  i--
+ ){
+
+  let j=
+   Math.floor(
+    Math.random()*(i+1)
+   );
+
+  [
+   arr[i],
+   arr[j]
+  ]=[
+   arr[j],
+   arr[i]
+  ];
+
+ }
+
+}
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+function toggleSettings(){
+
+ clickSound();
+
+ document.getElementById(
+  "settingsBox"
+ ).classList.toggle("show");
+
+}
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+function theme(mode){
+
+ clickSound();
+
+ document.body.classList.remove(
+  "white",
+  "eye"
+ );
+
+ document.body.classList.add(
+  mode
+ );
+
+ localStorage.setItem(
+  "academyTheme",
+  mode
+ );
+
+ updateThemeButtons();
+
+ document.getElementById(
+  "settingsBox"
+ ).classList.remove("show");
+
+}
+
+
+/* =========================================================
+   THEME BUTTONS
+========================================================= */
+
+function updateThemeButtons(){
+
+ let mode=
+  localStorage.getItem(
+   "academyTheme"
+  ) || "white";
+
+ document.querySelectorAll(
+  ".theme"
+ ).forEach(
+  x=>x.classList.remove(
+   "active"
+  )
+ );
+
+ if(mode==="white"){
+
+  document.getElementById(
+   "whiteTheme"
+  ).classList.add("active");
+
+ }
+
+ if(mode==="eye"){
+
+  document.getElementById(
+   "eyeTheme"
+  ).classList.add("active");
+
+ }
+
+}
+
+
+/* =========================================================
+   SOUND ON/OFF
+========================================================= */
+
+function toggleSound(){
+
+ soundOn=!soundOn;
+
+ localStorage.setItem(
+  "academySound",
+  soundOn
+ );
+
+ updateSoundUI();
+
+ if(soundOn){
+
+  successSound();
+
+ }
+
+}
+
+
+/* =========================================================
+   SOUND UI
+========================================================= */
+
+function updateSoundUI(){
+
+ const status=
+  document.getElementById(
+   "soundStatus"
+  );
+
+ if(!status)return;
+
+ if(soundOn){
+
+  status.textContent="ON";
+  status.style.color=
+   "var(--green)";
+
+ }else{
+
+  status.textContent="OFF";
+  status.style.color=
+   "var(--primary)";
+
+ }
+
+}
+
+
+/* =========================================================
+   SAVED THEME
+========================================================= */
+
+const savedTheme=
+ localStorage.getItem(
+  "academyTheme"
+ ) || "white";
+
+document.body.classList.remove(
+ "white",
+ "eye"
+);
+
+document.body.classList.add(
+ savedTheme
+);
+
+updateThemeButtons();
+updateSoundUI();
+
+
+/* =========================================================
+   SAFE HTML
+========================================================= */
+
+function safe(value){
+
+ return String(value)
+  .replace(
+   /&/g,
+   "&amp;"
+  )
+  .replace(
+   /</g,
+   "&lt;"
+  )
+  .replace(
+   />/g,
+   "&gt;"
+  )
+  .replace(
+   /"/g,
+   "&quot;"
+  );
+
+}
+
+
+/* =========================================================
+   CLOSE SETTINGS
+========================================================= */
+
+document.addEventListener(
+ "click",
+ function(e){
+
+  const box=
+   document.getElementById(
+    "settingsBox"
+   );
+
+  const button=
+   document.querySelector(
+    ".settings"
+   );
+
+  if(
+   box.classList.contains("show") &&
+   !box.contains(e.target) &&
+   !button.contains(e.target)
+  ){
+
+   box.classList.remove(
+    "show"
+   );
+
+  }
+
+ }
+);
+
+</script>
+
+</body>
+</html>
